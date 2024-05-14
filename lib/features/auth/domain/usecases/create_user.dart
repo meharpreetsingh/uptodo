@@ -1,3 +1,0 @@
-class CreateUser {
-  const CreateUser();
-}

@@ -1,15 +1,24 @@
-import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:uptodo/core/error/failure.dart';
+import 'package:uptodo/core/util/typedef.dart';
+import 'package:uptodo/features/auth/domain/entity/user.dart';
 
 abstract class AuthRepository {
   const AuthRepository();
 
-  Future<Either<Failure, void>> createUser({
-    required String createdAt,
+  ResultVoid registerUser({
+    required DateTime createdAt,
     required String name,
-    required String avatar,
+    required String emailId,
   });
 
-  Future<Either<Failure, List<User>>> getUser();
+  ResultFuture<UserAuth> loginUser({
+    required String emailId,
+    required String password,
+  });
+
+  ResultFuture<UserAuth> updatePassword({
+    required String uid,
+  });
+
+  ResultVoid logoutUser();
+  ResultVoid deleteUser();
 }
