@@ -17,6 +17,7 @@ abstract class AuthRepository {
 
   ResultFuture<UserAuth> updatePassword({
     required String uid,
+    required String password,
   });
 
   ResultVoid logoutUser();

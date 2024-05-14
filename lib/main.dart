@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:uptodo/core/services/injection_container.dart';
 import 'package:uptodo/uptodo_app.dart';
-import 'package:uptodo/injection_container.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

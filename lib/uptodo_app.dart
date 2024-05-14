@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:uptodo/config/routes/router.dart';
 import 'package:uptodo/config/theme/theme.dart';
-import 'package:uptodo/injection_container.dart';
+import 'package:uptodo/core/services/injection_container.dart';
 
 class UptodoApp extends StatelessWidget {
   const UptodoApp({super.key});
