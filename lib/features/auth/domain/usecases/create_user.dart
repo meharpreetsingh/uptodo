@@ -1,0 +1,3 @@
+class CreateUser {
+  const CreateUser();
+}
