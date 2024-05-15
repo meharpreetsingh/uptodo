@@ -1,5 +1,4 @@
 import 'package:uptodo/core/util/typedef.dart';
-import 'package:uptodo/features/auth/domain/entity/user.dart';
 
 abstract class AuthRepository {
   const AuthRepository();
@@ -10,12 +9,12 @@ abstract class AuthRepository {
     required String emailId,
   });
 
-  ResultFuture<UserAuth> loginUser({
+  ResultVoid loginUser({
     required String emailId,
     required String password,
   });
 
-  ResultFuture<UserAuth> updatePassword({
+  ResultVoid updatePassword({
     required String uid,
     required String password,
   });

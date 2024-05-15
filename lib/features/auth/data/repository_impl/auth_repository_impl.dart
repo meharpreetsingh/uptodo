@@ -1,6 +1,8 @@
+import 'package:dartz/dartz.dart';
+import 'package:uptodo/core/error/exceptions.dart';
+import 'package:uptodo/core/error/failure.dart';
 import 'package:uptodo/core/util/typedef.dart';
 import 'package:uptodo/features/auth/data/data_source/auth_remote_data_source.dart';
-import 'package:uptodo/features/auth/domain/entity/user.dart';
 import 'package:uptodo/features/auth/domain/repository/auth_repo.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -14,9 +16,13 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  ResultFuture<UserAuth> loginUser({required String emailId, required String password}) {
-    // TODO: implement loginUser
-    throw UnimplementedError();
+  ResultVoid loginUser({required String emailId, required String password}) async {
+    try {
+      await _remoteDataSource.loginUser(emailId: emailId, password: password);
+      return const Right(null);
+    } on APIException catch (e) {
+      return Left(APIFailure.fromException(e));
+    }
   }
 
   @override
@@ -32,7 +38,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  ResultFuture<UserAuth> updatePassword({required String uid, required String password}) {
+  ResultVoid updatePassword({required String uid, required String password}) {
     // TODO: implement updatePassword
     throw UnimplementedError();
   }

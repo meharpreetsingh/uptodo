@@ -8,7 +8,7 @@ class LoginUser extends UsecaseWithParams<void, LoginUserParams> {
   final AuthRepository _repository;
 
   @override
-  ResultFuture call(LoginUserParams params) async => _repository.loginUser(
+  ResultVoid call(LoginUserParams params) async => _repository.loginUser(
         emailId: params.emailId,
         password: params.password,
       );

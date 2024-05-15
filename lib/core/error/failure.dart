@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:uptodo/core/error/exceptions.dart';
 
 // abstract class Failure extends Equatable {
 //   final List<dynamic> properties;
@@ -17,6 +18,7 @@ abstract class Failure extends Equatable {
   List<Object> get props => [statusCode, message];
 }
 
-class ApiFailure extends Failure {
-  const ApiFailure({required super.statusCode, required super.message});
+class APIFailure extends Failure {
+  const APIFailure({required super.statusCode, required super.message});
+  APIFailure.fromException(APIException exception) : super(message: exception.message, statusCode: exception.statusCode);
 }

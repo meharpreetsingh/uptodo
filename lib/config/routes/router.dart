@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,25 +10,25 @@ import 'package:uptodo/features/auth/presentation/pages/register_screen.dart';
 import 'package:uptodo/features/onboard/presentation/pages/onboard_page.dart';
 
 final GlobalKey<NavigatorState> _root = GlobalKey(debugLabel: "rootNav");
-final GlobalKey<NavigatorState> _authShell =
-    GlobalKey(debugLabel: "authShellNav");
+final GlobalKey<NavigatorState> _authShell = GlobalKey(debugLabel: "authShellNav");
 final GlobalKey<NavigatorState> _shell = GlobalKey(debugLabel: "shellNav");
 
 class GoRouterProvider {
   GoRouter goRouter() {
     return GoRouter(
       navigatorKey: _root,
-      // initialLocation: "/",
-      initialLocation: AuthOptionsScreen.routeName,
+      initialLocation: "/",
       redirect: (context, state) async {
         // Onboard Screen if App is Opening the First time
-        // TODO Change it back
         SharedPreferences prefs = await SharedPreferences.getInstance();
         final bool isOnboarded = prefs.getBool("isOnboarded") ?? false;
         if (!isOnboarded) return OnboardScreen.routeName;
 
-        // TODO Authentication Screen if User not logged in
-        // if (!user) return AuthOptionsScreen.routeName;
+        // Authentication Screen if User not logged in
+        final User? user = FirebaseAuth.instance.currentUser;
+        List<String> authRoutes = [LoginScreen.routeName, RegisterScreen.routeName, AuthOptionsScreen.routeName];
+        if (user == null && !authRoutes.any((route) => state.fullPath!.contains(route))) return AuthOptionsScreen.routeName;
+
         return null;
       },
       routes: [
@@ -43,8 +46,7 @@ class GoRouterProvider {
             GoRoute(
               path: AuthOptionsScreen.routeName,
               name: AuthOptionsScreen.name,
-              pageBuilder: (context, state) =>
-                  _transition(const AuthOptionsScreen()),
+              pageBuilder: (context, state) => _transition(const AuthOptionsScreen()),
             ),
             GoRoute(
               path: LoginScreen.routeName,
@@ -54,8 +56,7 @@ class GoRouterProvider {
             GoRoute(
               path: RegisterScreen.routeName,
               name: RegisterScreen.name,
-              pageBuilder: (context, state) =>
-                  _transition(const RegisterScreen()),
+              pageBuilder: (context, state) => _transition(const RegisterScreen()),
             ),
           ],
         ),

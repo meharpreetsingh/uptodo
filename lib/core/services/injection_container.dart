@@ -15,10 +15,9 @@ Future<void> initGetIt() async {
   sl.registerSingleton<GoRouterProvider>(GoRouterProvider());
 
   // Features - Auth
-  sl.registerFactory(() => AuthBloc()); // Presentation
-  sl.registerLazySingleton(() => RegisterUser(sl())); // Usecase
-  sl.registerLazySingleton(() => LoginUser(sl())); // Usecase
+  sl.registerFactory<AuthBloc>(() => AuthBloc(loginUser: sl(), registerUser: sl())); // Presentation
+  sl.registerLazySingleton<RegisterUser>(() => RegisterUser(sl())); // Usecase
+  sl.registerLazySingleton<LoginUser>(() => LoginUser(sl())); // Usecase
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(sl())); // Repository
-  sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl(sl())); // Data source
-  sl.registerLazySingleton(() => FirebaseAuth.instance); // External
+  sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl()); // Data source
 }
