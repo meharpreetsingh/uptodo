@@ -21,7 +21,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       final String uid = auth.currentUser!.uid;
       final DocumentSnapshot<Map<String, dynamic>> userDoc = await firestore.collection("users").doc(uid).get();
       if (!userDoc.exists) throw const APIException(message: "User not found", statusCode: 404);
-      return UserModel.fromMap(userDoc.data()!);
+      return UserModel.fromFirestoreDoc(userDoc);
     } catch (e) {
       throw APIException(message: e.toString(), statusCode: 505);
     }

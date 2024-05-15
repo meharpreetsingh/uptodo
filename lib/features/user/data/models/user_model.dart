@@ -1,8 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uptodo/features/user/domain/entities/user.dart';
 
 class UserModel extends UserData {
   const UserModel({
-    required super.id,
     required super.email,
     required super.name,
     required super.createdAt,
@@ -11,27 +11,15 @@ class UserModel extends UserData {
     super.photoUrl,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'email': email,
-      'name': name,
-      'createdAt': createdAt,
-      'gender': gender,
-      'photoUrl': photoUrl,
-      'dob': dob,
-    };
-  }
-
-  factory UserModel.fromMap(Map<String, dynamic> map) {
+  factory UserModel.fromFirestoreDoc(DocumentSnapshot doc) {
+    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return UserModel(
-      id: map['id'],
-      email: map['email'],
-      name: map['name'],
-      createdAt: map['createdAt'],
-      gender: map['gender'],
-      photoUrl: map['photoUrl'],
-      dob: map['dob'],
+      email: data['email'] as String,
+      name: data['name'] as String,
+      createdAt: (data['createdAt'] as Timestamp).toDate(),
+      dob: (data['dob'] as Timestamp?)?.toDate(),
+      gender: data['gender'] as String?,
+      photoUrl: data['photoUrl'] as String?,
     );
   }
 }

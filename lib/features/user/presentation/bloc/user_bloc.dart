@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
@@ -24,11 +25,13 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   Future<FutureOr<void>> _onGetUser(GetUserEvent event, Emitter<UserState> emit) async {
     emit(UserLoading());
+    log("[_onGetUser] 🌐 Getting user data...");
     final result = await _getUser();
     result.fold(
       (failure) => emit(UserError(failure.message)),
       (user) => emit(UserFound(user)),
     );
+    log("[_onGetUser] 🌐 User data found!");
   }
 
   FutureOr<void> _onUpdateUser(UpdateUserEvent event, Emitter<UserState> emit) {}

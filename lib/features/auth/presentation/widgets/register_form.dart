@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:uptodo/core/util/validators.dart';
 import 'package:uptodo/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:uptodo/features/home/presentation/pages/home_screen.dart';
+import 'package:uptodo/features/todo/presentation/pages/todo_screen.dart';
+import 'package:uptodo/features/user/presentation/bloc/user_bloc.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -40,7 +41,10 @@ class _RegisterFormState extends State<RegisterForm> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state is AuthRegisterSuccess) context.go(HomeScreen.routeName);
+        if (state is AuthRegisterSuccess) {
+          context.read<UserBloc>().add(GetUserEvent());
+          context.go(TodoScreen.routeName);
+        }
       },
       builder: (context, state) {
         return Form(
