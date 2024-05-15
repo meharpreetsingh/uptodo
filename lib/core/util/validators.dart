@@ -23,3 +23,11 @@ String? validatePassword(String? value) {
   // }
   return null;
 }
+
+String? validateUsername(String? value) {
+  if (value == null || value.isEmpty) return "Username can't be empty";
+  if (value.length < 5 || value.length > 25) {
+    return "Username length must be between 6 and 24";
+  }
+  return null;
+}

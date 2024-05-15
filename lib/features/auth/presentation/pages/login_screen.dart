@@ -66,7 +66,6 @@ class LoginScreen extends StatelessWidget {
                   const Text("Don’t have an account?"),
                   TextButton(
                     onPressed: () {
-                      //   TODO Implement this
                       context.replace(RegisterScreen.routeName);
                     },
                     style: TextButton.styleFrom(

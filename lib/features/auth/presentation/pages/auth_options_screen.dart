@@ -33,8 +33,7 @@ class _AuthOptionsScreenState extends State<AuthOptionsScreen> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 32,
-                color:
-                    Theme.of(context).colorScheme.onSurface.withOpacity(0.87),
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.87),
               ),
             ),
             const SizedBox(height: 20),
@@ -43,15 +42,13 @@ class _AuthOptionsScreenState extends State<AuthOptionsScreen> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
-                color:
-                    Theme.of(context).colorScheme.onSurface.withOpacity(0.67),
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.67),
               ),
             ),
             Expanded(flex: 2, child: Container()),
             FilledButton(
               onPressed: () {
                 context.push(LoginScreen.routeName);
-                // TODO Implement this
               },
               child: const Text("LOGIN"),
             ),
@@ -59,7 +56,6 @@ class _AuthOptionsScreenState extends State<AuthOptionsScreen> {
             OutlinedButton(
               onPressed: () {
                 context.push(RegisterScreen.routeName);
-                // TODO Implement this
               },
               child: const Text("CREATE ACCOUNT"),
             ),
