@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:uptodo/core/services/injection_container.dart';
 import 'package:uptodo/uptodo_app.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Dependency Injections
-  initGetIt();
+  await initGetIt();
 
   runApp(const UptodoApp());
 }
