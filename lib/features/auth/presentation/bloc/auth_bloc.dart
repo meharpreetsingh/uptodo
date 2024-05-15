@@ -28,7 +28,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoginLoading());
     final result = await loginUser(LoginUserParams(emailId: emailId, password: password));
     result.fold(
-      (l) => emit(AuthError(l.message)),
+      (l) => emit(AuthLoginError(l.message)),
       (r) => emit(AuthLoginSuccess()),
     );
   }
@@ -46,7 +46,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       createdAt: createdAt,
     ));
     result.fold(
-      (l) => emit(AuthError(l.message)),
+      (l) => emit(AuthRegisterError(l.message)),
       (r) => emit(AuthRegisterSuccess()),
     );
   }

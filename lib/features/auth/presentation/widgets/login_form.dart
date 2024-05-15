@@ -67,7 +67,7 @@ class _LoginFormState extends State<LoginForm> {
                 decoration: const InputDecoration(hintText: "Password"),
                 validator: validatePassword,
               ),
-              if (state is AuthError) ...[
+              if (state is AuthLoginError) ...[
                 const SizedBox(height: 10),
                 Text(
                   state.message,

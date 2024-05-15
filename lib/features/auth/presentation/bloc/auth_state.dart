@@ -15,7 +15,12 @@ final class AuthRegisterLoading extends AuthState {}
 
 final class AuthRegisterSuccess extends AuthState {}
 
-final class AuthError extends AuthState {
-  const AuthError(this.message);
+final class AuthLoginError extends AuthState {
+  const AuthLoginError(this.message);
+  final String message;
+}
+
+final class AuthRegisterError extends AuthState {
+  const AuthRegisterError(this.message);
   final String message;
 }

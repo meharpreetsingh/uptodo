@@ -28,6 +28,12 @@ class _RegisterFormState extends State<RegisterForm> {
 
   _submitRegisterHandler() {
     if (!_formKey.currentState!.validate()) return;
+    auth.add(AuthRegisterEvent(
+      name: _userNameController.value.text,
+      emailId: _emailController.value.text,
+      password: _passwordController.value.text,
+      createdAt: DateTime.now(),
+    ));
   }
 
   @override
@@ -88,7 +94,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   return null;
                 },
               ),
-              if (state is AuthError) ...[
+              if (state is AuthRegisterError) ...[
                 const SizedBox(height: 10),
                 Text(
                   state.message,

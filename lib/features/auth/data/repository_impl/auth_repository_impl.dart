@@ -33,13 +33,22 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   ResultVoid registerUser({
-    required DateTime createdAt,
     required String name,
     required String emailId,
     required String password,
-  }) {
-    // TODO: implement registerUser
-    throw UnimplementedError();
+    required DateTime createdAt,
+  }) async {
+    try {
+      await _remoteDataSource.registerUser(
+        name: name,
+        emailId: emailId,
+        password: password,
+        createdAt: createdAt,
+      );
+      return const Right(null);
+    } on APIException catch (e) {
+      return Left(APIFailure.fromException(e));
+    }
   }
 
   @override

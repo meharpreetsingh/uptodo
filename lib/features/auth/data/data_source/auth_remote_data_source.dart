@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:uptodo/core/error/exceptions.dart';
 
@@ -25,6 +26,7 @@ abstract class AuthRemoteDataSource {
 // Implementation of AuthRemoteDataSource
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   Future<void> loginUser({required String emailId, required String password}) async {
@@ -32,9 +34,11 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       await auth.signInWithEmailAndPassword(email: emailId, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        throw const APIException(message: "User not found", statusCode: 404);
+        throw const APIException(message: "No user found for that email.", statusCode: 404);
       } else if (e.code == 'wrong-password') {
-        throw const APIException(message: 'Wrong Password', statusCode: 401);
+        throw const APIException(message: 'Wrong password provided for that user.', statusCode: 401);
+      } else if (e.code == 'invalid-credential') {
+        throw const APIException(message: 'Credentials are incorrect, malformed or has expired.', statusCode: 401);
       } else {
         throw const APIException(message: "Something went wrong!", statusCode: 505);
       }
@@ -49,7 +53,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required String password,
   }) async {
     try {
-      await auth.createUserWithEmailAndPassword(email: emailId, password: password);
+      final response = await auth.createUserWithEmailAndPassword(email: emailId, password: password);
+      await _createUserDetails(uid: response.user!.uid, name: name, emailId: emailId, createdAt: createdAt);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw const APIException(message: "Weak Password", statusCode: 400);
@@ -58,6 +63,25 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       } else {
         throw const APIException(message: "Something went wrong!", statusCode: 505);
       }
+    } on APIException {
+      rethrow;
+    }
+  }
+
+  Future<void> _createUserDetails({
+    required String uid,
+    required String name,
+    required String emailId,
+    required DateTime createdAt,
+  }) async {
+    try {
+      await firestore.collection('users').doc(uid).set({
+        'name': name,
+        'email': emailId,
+        'createdAt': createdAt,
+      });
+    } catch (e) {
+      throw const APIException(message: "Failed to store user details!", statusCode: 505);
     }
   }
 

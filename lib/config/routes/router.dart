@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uptodo/features/auth/presentation/pages/auth_options_screen.dart';
 import 'package:uptodo/features/auth/presentation/pages/login_screen.dart';
 import 'package:uptodo/features/auth/presentation/pages/register_screen.dart';
+import 'package:uptodo/features/home/presentation/pages/home_screen.dart';
 import 'package:uptodo/features/onboard/presentation/pages/onboard_page.dart';
 
 final GlobalKey<NavigatorState> _root = GlobalKey(debugLabel: "rootNav");
@@ -15,7 +16,7 @@ class GoRouterProvider {
   GoRouter goRouter() {
     return GoRouter(
       navigatorKey: _root,
-      initialLocation: "/",
+      initialLocation: HomeScreen.routeName,
       redirect: (context, state) async {
         // Onboard Screen if App is Opening the First time
         SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -34,6 +35,11 @@ class GoRouterProvider {
           path: OnboardScreen.routeName,
           name: OnboardScreen.name,
           pageBuilder: (context, state) => _transition(const OnboardScreen()),
+        ),
+        GoRoute(
+          path: HomeScreen.routeName,
+          name: HomeScreen.name,
+          pageBuilder: (context, state) => _transition(const HomeScreen()),
         ),
         ShellRoute(
           navigatorKey: _authShell,
