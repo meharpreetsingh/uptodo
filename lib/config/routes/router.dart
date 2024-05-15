@@ -5,25 +5,25 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uptodo/features/auth/presentation/pages/auth_options_screen.dart';
 import 'package:uptodo/features/auth/presentation/pages/login_screen.dart';
 import 'package:uptodo/features/auth/presentation/pages/register_screen.dart';
-import 'package:uptodo/features/home/presentation/pages/home_screen.dart';
+import 'package:uptodo/features/general/presentation/pages/base_screen.dart';
 import 'package:uptodo/features/onboard/presentation/pages/onboard_page.dart';
+import 'package:uptodo/features/todo/presentation/pages/todo_screen.dart';
 
 final GlobalKey<NavigatorState> _root = GlobalKey(debugLabel: "rootNav");
 final GlobalKey<NavigatorState> _authShell = GlobalKey(debugLabel: "authShellNav");
-final GlobalKey<NavigatorState> _shell = GlobalKey(debugLabel: "shellNav");
+final GlobalKey<NavigatorState> _baseShell = GlobalKey(debugLabel: "baseShellNav");
 
 class GoRouterProvider {
   GoRouter goRouter() {
     return GoRouter(
       navigatorKey: _root,
-      initialLocation: HomeScreen.routeName,
+      initialLocation: TodoScreen.routeName,
       redirect: (context, state) async {
-        // Onboard Screen if App is Opening the First time
+        // First time App Opening
         SharedPreferences prefs = await SharedPreferences.getInstance();
         final bool isOnboarded = prefs.getBool("isOnboarded") ?? false;
         if (!isOnboarded) return OnboardScreen.routeName;
-
-        // Authentication Screen if User not logged in
+        // User not logged in
         final User? user = FirebaseAuth.instance.currentUser;
         List<String> authRoutes = [LoginScreen.routeName, RegisterScreen.routeName, AuthOptionsScreen.routeName];
         if (user == null && !authRoutes.any((route) => state.fullPath!.contains(route))) return AuthOptionsScreen.routeName;
@@ -35,11 +35,6 @@ class GoRouterProvider {
           path: OnboardScreen.routeName,
           name: OnboardScreen.name,
           pageBuilder: (context, state) => _transition(const OnboardScreen()),
-        ),
-        GoRoute(
-          path: HomeScreen.routeName,
-          name: HomeScreen.name,
-          pageBuilder: (context, state) => _transition(const HomeScreen()),
         ),
         ShellRoute(
           navigatorKey: _authShell,
@@ -61,6 +56,19 @@ class GoRouterProvider {
               path: RegisterScreen.routeName,
               name: RegisterScreen.name,
               pageBuilder: (context, state) => _transition(const RegisterScreen()),
+            ),
+          ],
+        ),
+        ShellRoute(
+          navigatorKey: _baseShell,
+          builder: (context, state, child) {
+            return CommonMainScreen(child: child);
+          },
+          routes: [
+            GoRoute(
+              path: TodoScreen.routeName,
+              name: TodoScreen.name,
+              pageBuilder: (context, state) => _transition(const TodoScreen()),
             ),
           ],
         ),

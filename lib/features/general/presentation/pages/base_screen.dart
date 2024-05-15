@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:uptodo/common/widgets/bottom_app_bar.dart';
+import 'package:uptodo/common/widgets/main_bottom_nav_bar.dart';
 
-class HomeScreen extends StatelessWidget {
-  static const String routeName = '/home';
-  static const String name = "HomeScreen";
-
-  const HomeScreen({super.key});
+class CommonMainScreen extends StatelessWidget {
+  const CommonMainScreen({super.key, required this.child});
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      bottomNavigationBar: const CustomBottomAppBar(),
+      bottomNavigationBar: const MainBottomAppBar(),
       floatingActionButton: FloatingActionButton(
         tooltip: "Add",
         shape: const CircleBorder(),
@@ -20,14 +18,10 @@ class HomeScreen extends StatelessWidget {
           Icons.add,
           color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
         ),
-        onPressed: () {
-          // TODO: Add functionality
-        },
+        onPressed: () {},
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      body: const Center(
-        child: Text("Home Screen"),
-      ),
+      body: child,
     );
   }
 }
