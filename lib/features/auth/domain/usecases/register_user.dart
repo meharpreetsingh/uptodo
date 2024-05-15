@@ -9,9 +9,10 @@ class RegisterUser extends UsecaseWithParams<void, RegisterUserParams> {
 
   @override
   ResultVoid call(RegisterUserParams params) async => _repository.registerUser(
-        createdAt: params.createdAt,
         name: params.name,
         emailId: params.emailId,
+        password: params.password,
+        createdAt: params.createdAt,
       );
 }
 
@@ -19,13 +20,21 @@ class RegisterUserParams extends Equatable {
   final DateTime createdAt;
   final String name;
   final String emailId;
+  final String password;
 
-  RegisterUserParams.empty() : this(createdAt: DateTime(2001, 02, 07), name: "", emailId: "");
+  RegisterUserParams.empty()
+      : this(
+          name: "",
+          emailId: "",
+          password: "",
+          createdAt: DateTime(2001, 02, 07),
+        );
 
   const RegisterUserParams({
-    required this.createdAt,
     required this.name,
     required this.emailId,
+    required this.password,
+    required this.createdAt,
   });
 
   @override

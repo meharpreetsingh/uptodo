@@ -88,7 +88,6 @@ class _RegisterFormState extends State<RegisterForm> {
                   return null;
                 },
               ),
-              const SizedBox(height: 40),
               if (state is AuthError) ...[
                 const SizedBox(height: 10),
                 Text(

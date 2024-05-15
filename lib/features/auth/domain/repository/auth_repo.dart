@@ -4,9 +4,10 @@ abstract class AuthRepository {
   const AuthRepository();
 
   ResultVoid registerUser({
-    required DateTime createdAt,
     required String name,
     required String emailId,
+    required String password,
+    required DateTime createdAt,
   });
 
   ResultVoid loginUser({

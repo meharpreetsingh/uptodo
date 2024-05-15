@@ -16,6 +16,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }) : super(AuthInitial()) {
     on<AuthEvent>((event, emit) {});
     on<AuthLoginEvent>(_onAuthLogin);
+    on<AuthRegisterEvent>(_onAuthRegister);
   }
 
   final RegisterUser registerUser;
@@ -29,6 +30,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     result.fold(
       (l) => emit(AuthError(l.message)),
       (r) => emit(AuthLoginSuccess()),
+    );
+  }
+
+  FutureOr<void> _onAuthRegister(AuthRegisterEvent event, Emitter<AuthState> emit) async {
+    final String emailId = event.emailId;
+    final String password = event.password;
+    final String username = event.name;
+    final DateTime createdAt = event.createdAt;
+    emit(AuthRegisterLoading());
+    final result = await registerUser(RegisterUserParams(
+      emailId: emailId,
+      password: password,
+      name: username,
+      createdAt: createdAt,
+    ));
+    result.fold(
+      (l) => emit(AuthError(l.message)),
+      (r) => emit(AuthRegisterSuccess()),
     );
   }
 }

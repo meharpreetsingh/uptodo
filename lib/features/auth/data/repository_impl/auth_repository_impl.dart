@@ -32,7 +32,12 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  ResultVoid registerUser({required DateTime createdAt, required String name, required String emailId}) {
+  ResultVoid registerUser({
+    required DateTime createdAt,
+    required String name,
+    required String emailId,
+    required String password,
+  }) {
     // TODO: implement registerUser
     throw UnimplementedError();
   }

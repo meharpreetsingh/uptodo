@@ -16,15 +16,15 @@ class AuthLoginEvent extends AuthEvent {
 }
 
 class AuthRegisterEvent extends AuthEvent {
-  final String username;
-  final String email;
+  final String name;
+  final String emailId;
   final String password;
   final DateTime createdAt;
 
   const AuthRegisterEvent({
-    required this.email,
+    required this.name,
+    required this.emailId,
     required this.password,
-    required this.username,
     required this.createdAt,
   });
 }
