@@ -6,6 +6,7 @@ import 'package:uptodo/config/theme/theme.dart';
 import 'package:uptodo/core/services/injection_container.dart';
 import 'package:uptodo/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:uptodo/features/auth/presentation/pages/auth_options_screen.dart';
+import 'package:uptodo/features/theme/presentation/bloc/theme_bloc.dart';
 import 'package:uptodo/features/user/presentation/bloc/user_bloc.dart';
 
 class UptodoApp extends StatelessWidget {
@@ -18,27 +19,32 @@ class UptodoApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(create: (context) => sl.get<AuthBloc>()),
-        BlocProvider<UserBloc>(create: (context) => sl.get<UserBloc>())
+        BlocProvider<UserBloc>(create: (context) => sl.get<UserBloc>()),
+        BlocProvider<ThemeBloc>(create: (context) => sl.get<ThemeBloc>()..add(GetThemeModeEvent()))
       ],
       child: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthInitial) router.go(AuthOptionsScreen.routeName);
         },
-        child: MaterialApp.router(
-          title: 'TODO',
-          debugShowCheckedModeBanner: false,
-          theme: getThemeData(isDark: false),
-          darkTheme: getThemeData(isDark: true),
-          themeMode: ThemeMode.dark,
-          routerConfig: router,
-          builder: (context, child) {
-            SystemChrome.setSystemUIOverlayStyle(
-              SystemUiOverlayStyle(
-                systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
-                statusBarColor: Theme.of(context).scaffoldBackgroundColor,
-              ),
+        child: BlocBuilder<ThemeBloc, ThemeState>(
+          builder: (context, state) {
+            return MaterialApp.router(
+              title: 'TODO',
+              debugShowCheckedModeBanner: false,
+              theme: getThemeData(isDark: false),
+              darkTheme: getThemeData(isDark: true),
+              themeMode: state is ThemeLightState ? ThemeMode.light : ThemeMode.dark,
+              routerConfig: router,
+              builder: (context, child) {
+                SystemChrome.setSystemUIOverlayStyle(
+                  SystemUiOverlayStyle(
+                    systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
+                    statusBarColor: Theme.of(context).scaffoldBackgroundColor,
+                  ),
+                );
+                return child!;
+              },
             );
-            return child!;
           },
         ),
       ),

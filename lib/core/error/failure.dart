@@ -22,3 +22,9 @@ class APIFailure extends Failure {
   const APIFailure({required super.statusCode, required super.message});
   APIFailure.fromException(APIException exception) : super(message: exception.message, statusCode: exception.statusCode);
 }
+
+class LocalDataFailure extends Failure {
+  const LocalDataFailure({required super.statusCode, required super.message});
+  LocalDataFailure.fromException(LocalDataException exception)
+      : super(message: exception.message, statusCode: exception.statusCode);
+}

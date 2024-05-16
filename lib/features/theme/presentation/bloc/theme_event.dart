@@ -3,8 +3,10 @@ part of 'theme_bloc.dart';
 @immutable
 sealed class ThemeEvent {}
 
-class ToggleDarkMode extends ThemeEvent {}
+class GetThemeModeEvent extends ThemeEvent {}
 
-class ToggleLightMode extends ThemeEvent {}
+class ToggleDarkModeEvent extends ThemeEvent {}
 
-class ToggleThemeMode extends ThemeEvent {}
+class ToggleLightModeEvent extends ThemeEvent {}
+
+class ToggleThemeModeEvent extends ThemeEvent {}

@@ -1,6 +1,9 @@
+import 'package:uptodo/core/util/typedef.dart';
+import 'package:uptodo/features/theme/domain/entity/app_theme_mode.dart';
+
 abstract class ThemeRepo {
   const ThemeRepo();
 
-  bool isDarkTheme();
-  void changeTheme({required bool isDark});
+  ResultVoid setThemeMode(AppThemeMode themeMode);
+  ResultFuture<AppThemeMode> getThemeMode();
 }
