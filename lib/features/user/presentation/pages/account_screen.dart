@@ -73,11 +73,13 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                                     state.user.photoUrl!,
                                     color: Colors.white24,
                                     colorBlendMode: BlendMode.xor,
+                                    fit: BoxFit.cover,
                                   )
                                 : Image.asset(
                                     "assets/images/male_profile_icon.jpg",
                                     color: Colors.white24,
                                     colorBlendMode: BlendMode.xor,
+                                    fit: BoxFit.cover,
                                   ),
                           ),
                         ),

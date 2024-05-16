@@ -26,8 +26,14 @@ class ProfileScreen extends StatelessWidget {
                 radius: 75,
                 child: ClipOval(
                   child: state.user.photoUrl != null
-                      ? Image.network(state.user.photoUrl!)
-                      : Image.asset("assets/images/male_profile_icon.jpg"),
+                      ? Image.network(
+                          state.user.photoUrl!,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset(
+                          "assets/images/male_profile_icon.jpg",
+                          fit: BoxFit.cover,
+                        ),
                 ),
               ),
               const SizedBox(height: 15),
