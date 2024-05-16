@@ -4,9 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:uptodo/common/widgets/global_app_bar.dart';
 import 'package:uptodo/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:uptodo/features/auth/presentation/pages/auth_options_screen.dart';
-import 'package:uptodo/features/settings/presentation/pages/settings_screen.dart';
+import 'package:uptodo/features/general/presentation/pages/settings_screen.dart';
 import 'package:uptodo/features/user/presentation/bloc/user_bloc.dart';
+import 'package:uptodo/features/user/presentation/pages/account_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   static const String name = 'Profile';
@@ -27,7 +27,7 @@ class ProfileScreen extends StatelessWidget {
                 child: ClipOval(
                   child: state.user.photoUrl != null
                       ? Image.network(state.user.photoUrl!)
-                      : Image.asset("assets/images/female_profile_icon.jpeg"),
+                      : Image.asset("assets/images/male_profile_icon.jpg"),
                 ),
               ),
               const SizedBox(height: 15),
@@ -108,7 +108,7 @@ class ProfileScreen extends StatelessWidget {
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
                   onTap: () {
-                    // TODO : Navigate to Account Screen
+                    context.push(AccountSettingScreen.routeName);
                   },
                 ),
                 const SizedBox(height: 5),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uptodo/common/widgets/profile_pic_icon.dart';
+import 'package:uptodo/features/user/presentation/widgets/profile_pic_icon.dart';
 
 AppBar globalAppBar({
   required BuildContext context,

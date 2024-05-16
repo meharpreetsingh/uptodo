@@ -7,9 +7,10 @@ import 'package:uptodo/features/auth/presentation/pages/login_screen.dart';
 import 'package:uptodo/features/auth/presentation/pages/register_screen.dart';
 import 'package:uptodo/features/general/presentation/pages/base_screen.dart';
 import 'package:uptodo/features/onboard/presentation/pages/onboard_page.dart';
-import 'package:uptodo/features/settings/presentation/pages/settings_screen.dart';
+import 'package:uptodo/features/general/presentation/pages/settings_screen.dart';
 import 'package:uptodo/features/todo/presentation/pages/todo_screen.dart';
-import 'package:uptodo/features/user/presentation/pages/profile_page.dart';
+import 'package:uptodo/features/general/presentation/pages/profile_page.dart';
+import 'package:uptodo/features/user/presentation/pages/account_screen.dart';
 
 final GlobalKey<NavigatorState> _root = GlobalKey(debugLabel: "rootNav");
 final GlobalKey<NavigatorState> _authShell = GlobalKey(debugLabel: "authShellNav");
@@ -83,6 +84,11 @@ class GoRouterProvider {
           path: AppSettingsScreen.routeName,
           name: AppSettingsScreen.name,
           pageBuilder: (context, state) => _transition(const AppSettingsScreen()),
+        ),
+        GoRoute(
+          path: AccountSettingScreen.routeName,
+          name: AccountSettingScreen.name,
+          pageBuilder: (context, state) => _transition(const AccountSettingScreen()),
         ),
       ],
     );

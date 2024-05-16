@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:uptodo/features/user/presentation/bloc/user_bloc.dart';
-import 'package:uptodo/features/user/presentation/pages/profile_page.dart';
+import 'package:uptodo/features/general/presentation/pages/profile_page.dart';
 
 class ProfileIcon extends StatefulWidget {
   const ProfileIcon({super.key});
@@ -41,7 +41,7 @@ class _ProfileIconState extends State<ProfileIcon> {
               child: ClipOval(
                 child: state.user.photoUrl != null
                     ? Image.network(state.user.photoUrl!)
-                    : Image.asset("assets/images/female_profile_icon.jpeg"),
+                    : Image.asset("assets/images/male_profile_icon.jpg"),
               ),
             ),
           );

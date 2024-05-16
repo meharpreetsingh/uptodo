@@ -31,5 +31,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     );
   }
 
-  FutureOr<void> _onUpdateUser(UpdateUserEvent event, Emitter<UserState> emit) {}
+  FutureOr<void> _onUpdateUser(UpdateUserEvent event, Emitter<UserState> emit) async {
+    emit(UpdatingUser(event.user));
+    final result = await _updateUser(event.user);
+    result.fold(
+      (failure) => emit(UserError(failure.message)),
+      (user) => emit(UserFound(user)),
+    );
+  }
 }

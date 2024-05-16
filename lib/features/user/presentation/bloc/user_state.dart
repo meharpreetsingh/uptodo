@@ -18,3 +18,7 @@ final class UserFound extends UserState {
   final UserData user;
   const UserFound(this.user);
 }
+
+final class UpdatingUser extends UserFound {
+  const UpdatingUser(UserData user) : super(user);
+}
