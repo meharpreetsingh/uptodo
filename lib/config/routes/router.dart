@@ -7,6 +7,7 @@ import 'package:uptodo/features/auth/presentation/pages/login_screen.dart';
 import 'package:uptodo/features/auth/presentation/pages/register_screen.dart';
 import 'package:uptodo/features/general/presentation/pages/base_screen.dart';
 import 'package:uptodo/features/onboard/presentation/pages/onboard_page.dart';
+import 'package:uptodo/features/settings/presentation/pages/settings_screen.dart';
 import 'package:uptodo/features/todo/presentation/pages/todo_screen.dart';
 import 'package:uptodo/features/user/presentation/pages/profile_page.dart';
 
@@ -18,7 +19,7 @@ class GoRouterProvider {
   GoRouter goRouter() {
     return GoRouter(
       navigatorKey: _root,
-      initialLocation: TodoScreen.routeName,
+      // initialLocation: TodoScreen.routeName, // Uncomment this line to test the TodoScreen
       redirect: (context, state) async {
         // First time App Opening
         SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -77,6 +78,11 @@ class GoRouterProvider {
               pageBuilder: (context, state) => _transition(const ProfileScreen()),
             ),
           ],
+        ),
+        GoRoute(
+          path: AppSettingsScreen.routeName,
+          name: AppSettingsScreen.name,
+          pageBuilder: (context, state) => _transition(const AppSettingsScreen()),
         ),
       ],
     );

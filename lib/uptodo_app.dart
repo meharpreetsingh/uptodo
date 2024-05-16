@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:uptodo/config/routes/router.dart';
 import 'package:uptodo/config/theme/theme.dart';
 import 'package:uptodo/core/services/injection_container.dart';

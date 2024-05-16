@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:uptodo/common/widgets/global_app_bar.dart';
 import 'package:uptodo/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:uptodo/features/auth/presentation/pages/auth_options_screen.dart';
+import 'package:uptodo/features/settings/presentation/pages/settings_screen.dart';
 import 'package:uptodo/features/user/presentation/bloc/user_bloc.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -80,7 +81,7 @@ class ProfileScreen extends StatelessWidget {
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
                   onTap: () {
-                    // TODO : Navigate to App Settings Screen
+                    context.push(AppSettingsScreen.routeName);
                   },
                 ),
                 const SizedBox(height: 10),
