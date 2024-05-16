@@ -4,6 +4,7 @@ import 'package:uptodo/features/auth/data/data_source/auth_remote_data_source.da
 import 'package:uptodo/features/auth/data/repository_impl/auth_repository_impl.dart';
 import 'package:uptodo/features/auth/domain/repository/auth_repo.dart';
 import 'package:uptodo/features/auth/domain/usecases/login_user.dart';
+import 'package:uptodo/features/auth/domain/usecases/logout_user.dart';
 import 'package:uptodo/features/auth/domain/usecases/register_user.dart';
 import 'package:uptodo/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:uptodo/features/user/data/data_sources/user_remote_data_source.dart';
@@ -20,9 +21,10 @@ Future<void> initGetIt() async {
   sl.registerSingleton<GoRouterProvider>(GoRouterProvider());
 
   // Features - Auth
-  sl.registerFactory<AuthBloc>(() => AuthBloc(loginUser: sl(), registerUser: sl())); // Presentation
+  sl.registerFactory<AuthBloc>(() => AuthBloc(loginUser: sl(), registerUser: sl(), logoutUser: sl())); // Presentation
   sl.registerLazySingleton<RegisterUser>(() => RegisterUser(sl())); // Usecase
   sl.registerLazySingleton<LoginUser>(() => LoginUser(sl())); // Usecase
+  sl.registerLazySingleton<LogoutUser>(() => LogoutUser(sl())); // Usecase
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(sl())); // Repository
   sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl()); // Data source
 

@@ -20,6 +20,11 @@ final class AuthLoginError extends AuthState {
   final String message;
 }
 
+final class AuthLogoutError extends AuthState {
+  const AuthLogoutError(this.message);
+  final String message;
+}
+
 final class AuthRegisterError extends AuthState {
   const AuthRegisterError(this.message);
   final String message;

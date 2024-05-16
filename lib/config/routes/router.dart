@@ -8,6 +8,7 @@ import 'package:uptodo/features/auth/presentation/pages/register_screen.dart';
 import 'package:uptodo/features/general/presentation/pages/base_screen.dart';
 import 'package:uptodo/features/onboard/presentation/pages/onboard_page.dart';
 import 'package:uptodo/features/todo/presentation/pages/todo_screen.dart';
+import 'package:uptodo/features/user/presentation/pages/profile_page.dart';
 
 final GlobalKey<NavigatorState> _root = GlobalKey(debugLabel: "rootNav");
 final GlobalKey<NavigatorState> _authShell = GlobalKey(debugLabel: "authShellNav");
@@ -69,6 +70,11 @@ class GoRouterProvider {
               path: TodoScreen.routeName,
               name: TodoScreen.name,
               pageBuilder: (context, state) => _transition(const TodoScreen()),
+            ),
+            GoRoute(
+              path: ProfileScreen.routeName,
+              name: ProfileScreen.name,
+              pageBuilder: (context, state) => _transition(const ProfileScreen()),
             ),
           ],
         ),

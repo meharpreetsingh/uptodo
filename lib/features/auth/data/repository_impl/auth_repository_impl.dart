@@ -26,9 +26,13 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  ResultVoid logoutUser() {
-    // TODO: implement logoutUser
-    throw UnimplementedError();
+  ResultVoid logoutUser() async {
+    try {
+      await _remoteDataSource.logoutUser();
+      return const Right(null);
+    } on APIException catch (e) {
+      return Left(APIFailure.fromException(e));
+    }
   }
 
   @override

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:uptodo/features/user/presentation/bloc/user_bloc.dart';
+import 'package:uptodo/features/user/presentation/pages/profile_page.dart';
 
 class ProfileIcon extends StatefulWidget {
   const ProfileIcon({super.key});
@@ -31,7 +33,9 @@ class _ProfileIconState extends State<ProfileIcon> {
         }
         if (state is UserFound) {
           return GestureDetector(
-            onTap: () {},
+            onTap: () {
+              context.go(ProfileScreen.routeName);
+            },
             child: CircleAvatar(
               radius: 21,
               child: ClipOval(
