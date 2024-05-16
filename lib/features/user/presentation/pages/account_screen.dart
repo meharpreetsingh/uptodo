@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:uptodo/common/widgets/custom_dialog.dart';
 import 'package:uptodo/common/widgets/global_app_bar.dart';
 import 'package:uptodo/features/user/presentation/bloc/user_bloc.dart';
 import 'package:uptodo/features/user/presentation/widgets/update_username_dialog.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AccountSettingScreen extends StatefulWidget {
   const AccountSettingScreen({super.key});
@@ -65,9 +65,10 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                     Stack(
                       alignment: Alignment.center,
                       children: [
-                        CircleAvatar(
-                          radius: 75,
-                          child: ClipOval(
+                        ClipOval(
+                          child: SizedBox(
+                            height: 130,
+                            width: 130,
                             child: state.user.photoUrl != null
                                 ? Image.network(
                                     state.user.photoUrl!,
@@ -87,8 +88,11 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                           child: Align(
                             alignment: Alignment.center,
                             child: IconButton(
-                              onPressed: () {
-                                // TODO: Implement Profile Picture Edit
+                              onPressed: () async {
+                                final ImagePicker picker = ImagePicker();
+                                final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+                                if (image == null) return;
+                                userBloc.add(UpdatePhotoUrlEvent(state.user, image.path));
                               },
                               icon: SvgPicture.asset(
                                 "assets/svg/icons/edit.svg",
@@ -116,9 +120,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                           onPressed: () async {
                             final name = await showDialog<String>(
                               context: context,
-                              builder: (_) {
-                                return UpdateUsernameDialog(initialValue: state.user.name);
-                              },
+                              builder: (_) => UpdateUsernameDialog(initialValue: state.user.name),
                             );
                             if (name != null) userBloc.add(UpdateUserEvent(state.user.copyWith(name: name)));
                           },

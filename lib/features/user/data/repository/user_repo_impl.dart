@@ -30,4 +30,14 @@ class UserRepoImpl implements UserRepo {
       return Left(APIFailure.fromException(e));
     }
   }
+
+  @override
+  ResultFuture<UserData> updatePhotoUrl(UserData userData, String photoUrl) async {
+    try {
+      final UserModel result = await _remoteDataSource.updatePhotoUrl(UserModel.fromUserData(userData), photoUrl);
+      return Right(result);
+    } on APIException catch (e) {
+      return Left(APIFailure.fromException(e));
+    }
+  }
 }

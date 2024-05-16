@@ -18,6 +18,7 @@ import 'package:uptodo/features/user/data/data_sources/user_remote_data_source.d
 import 'package:uptodo/features/user/data/repository/user_repo_impl.dart';
 import 'package:uptodo/features/user/domain/repository/user_repo.dart';
 import 'package:uptodo/features/user/domain/usecases/get_user_usecase.dart';
+import 'package:uptodo/features/user/domain/usecases/update_photo_url.dart';
 import 'package:uptodo/features/user/domain/usecases/update_user_usecase.dart';
 import 'package:uptodo/features/user/presentation/bloc/user_bloc.dart';
 
@@ -41,9 +42,10 @@ Future<void> initGetIt() async {
   sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl()); // Data source
 
   // Features - User
-  sl.registerFactory<UserBloc>(() => UserBloc(getUser: sl(), updateUser: sl())); // Presentation
+  sl.registerFactory<UserBloc>(() => UserBloc(getUser: sl(), updateUser: sl(), updatePhotoUrl: sl())); // Presentation
   sl.registerLazySingleton<GetUser>(() => GetUser(sl())); // Usecase
   sl.registerLazySingleton<UpdateUser>(() => UpdateUser(sl())); // Usecase
+  sl.registerLazySingleton<UpdatePhotoUrl>(() => UpdatePhotoUrl(sl())); // Usecase
   sl.registerLazySingleton<UserRepo>(() => UserRepoImpl(sl())); // Repository
   sl.registerLazySingleton<UserRemoteDataSource>(() => UserRemoteDataSourceImpl()); // Data source
 

@@ -22,9 +22,10 @@ class ProfileScreen extends StatelessWidget {
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              CircleAvatar(
-                radius: 75,
-                child: ClipOval(
+              ClipOval(
+                child: SizedBox(
+                  height: 130,
+                  width: 130,
                   child: state.user.photoUrl != null
                       ? Image.network(
                           state.user.photoUrl!,

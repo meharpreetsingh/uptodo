@@ -1,21 +1,21 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:uptodo/core/error/exceptions.dart';
 import 'package:uptodo/features/user/data/models/user_model.dart';
 
 abstract class UserRemoteDataSource {
   Future<UserModel> getUser();
   Future<UserModel> updateUser(UserModel user);
-  Future<UserModel> deleteUser();
-  Future<UserModel> updateUsername(String username);
-  Future<UserModel> updatePhotoUrl(String photoUrl);
-  Future<UserModel> updateDob(DateTime dob);
-  Future<UserModel> updateGender(String gender);
+  Future<UserModel> updatePhotoUrl(UserModel user, String photoUrl);
 }
 
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final FirebaseStorage storage = FirebaseStorage.instance;
 
   @override
   Future<UserModel> getUser() async {
@@ -46,32 +46,16 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   }
 
   @override
-  Future<UserModel> deleteUser() {
-    // TODO: implement deleteUser
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<UserModel> updateDob(DateTime dob) {
-    // TODO: implement updateDob
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<UserModel> updateGender(String gender) {
-    // TODO: implement updateGender
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<UserModel> updatePhotoUrl(String photoUrl) {
-    // TODO: implement updatePhotoUrl
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<UserModel> updateUsername(String username) {
-    // TODO: implement updateUsername
-    throw UnimplementedError();
+  Future<UserModel> updatePhotoUrl(UserModel user, String imagePath) async {
+    try {
+      final Reference ref = storage.ref().child("profile_images").child(user.uid);
+      await ref.putFile(File(imagePath));
+      final String photoUrl = await ref.getDownloadURL();
+      final DocumentReference<Map<String, dynamic>> userDoc = firestore.collection("users").doc(user.uid);
+      await userDoc.set(user.copyWith(photoUrl: photoUrl).toMap(), SetOptions(merge: true));
+      return await getUser();
+    } catch (e) {
+      throw APIException(message: e.toString(), statusCode: 505);
+    }
   }
 }

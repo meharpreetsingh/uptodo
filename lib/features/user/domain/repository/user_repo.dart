@@ -6,4 +6,5 @@ abstract class UserRepo {
 
   ResultFuture<UserData> getUserData();
   ResultFuture<UserData> updateUserData(UserData userData);
+  ResultFuture<UserData> updatePhotoUrl(UserData userData, String photoUrl);
 }

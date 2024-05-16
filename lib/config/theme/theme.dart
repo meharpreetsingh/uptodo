@@ -5,8 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 ThemeData getThemeData({bool isDark = true}) {
   return ThemeData(
     brightness: isDark ? Brightness.dark : Brightness.light,
-    scaffoldBackgroundColor:
-        isDark ? const Color(0xFF121212) : const Color(0xFFFEFEFE),
+    scaffoldBackgroundColor: isDark ? const Color(0xFF121212) : const Color(0xFFFEFEFE),
     fontFamily: GoogleFonts.lato().fontFamily,
     primaryColor: const Color(0xFF8687E7),
     colorScheme: ColorScheme(
@@ -21,9 +20,7 @@ ThemeData getThemeData({bool isDark = true}) {
       background: isDark ? const Color(0xFF121212) : const Color(0xFFFEFEFE),
       onBackground: isDark ? const Color(0xFFFEFEFE) : const Color(0xFF121212),
       surface: isDark ? const Color(0xFF363636) : const Color(0xFFC8C8C8),
-      onSurface: isDark
-          ? const Color(0xFFFEFEFE).withOpacity(0.87)
-          : const Color(0xFF121212),
+      onSurface: isDark ? const Color(0xFFFEFEFE).withOpacity(0.87) : const Color(0xFF121212),
     ),
     expansionTileTheme: ExpansionTileThemeData(
       tilePadding: const EdgeInsets.symmetric(horizontal: 10),
@@ -69,17 +66,14 @@ ThemeData getThemeData({bool isDark = true}) {
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
       contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 18),
       hintStyle: TextStyle(
-        color: isDark
-            ? const Color(0xFFFEFEFE).withOpacity(0.4)
-            : const Color(0xFF121212).withOpacity(0.4),
+        color: isDark ? const Color(0xFFFEFEFE).withOpacity(0.4) : const Color(0xFF121212).withOpacity(0.4),
       ),
     ),
     appBarTheme: AppBarTheme(
-      backgroundColor:
-          isDark ? const Color(0xFF121212) : const Color(0xFFFEFEFE),
+      backgroundColor: isDark ? const Color(0xFF121212) : const Color(0xFFFEFEFE),
     ),
   );
 }
 
 /// onSurface -> Default Color of Text, Icons
-/// surface -> Default Color of showModalBottomSheet
+///   -> Default Color of showModalBottomSheet

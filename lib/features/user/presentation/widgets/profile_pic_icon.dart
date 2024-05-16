@@ -36,12 +36,13 @@ class _ProfileIconState extends State<ProfileIcon> {
             onTap: () {
               context.go(ProfileScreen.routeName);
             },
-            child: CircleAvatar(
-              radius: 21,
-              child: ClipOval(
+            child: ClipOval(
+              child: SizedBox(
+                height: 32,
+                width: 32,
                 child: state.user.photoUrl != null
-                    ? Image.network(state.user.photoUrl!)
-                    : Image.asset("assets/images/male_profile_icon.jpg"),
+                    ? Image.network(state.user.photoUrl!, fit: BoxFit.cover)
+                    : Image.asset("assets/images/male_profile_icon.jpg", fit: BoxFit.cover),
               ),
             ),
           );

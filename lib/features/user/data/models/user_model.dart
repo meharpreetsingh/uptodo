@@ -48,4 +48,24 @@ class UserModel extends UserData {
       photoUrl: data.photoUrl,
     );
   }
+
+  @override
+  UserModel copyWith({
+    String? uid,
+    String? email,
+    String? name,
+    DateTime? createdAt,
+    String? gender,
+    String? photoUrl,
+    DateTime? dob,
+  }) =>
+      UserModel(
+        uid: uid ?? this.uid,
+        email: email ?? this.email,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        gender: gender ?? this.gender,
+        photoUrl: photoUrl ?? this.photoUrl,
+        dob: dob ?? this.dob,
+      );
 }
