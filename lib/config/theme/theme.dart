@@ -71,6 +71,7 @@ ThemeData getThemeData({bool isDark = true}) {
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: isDark ? const Color(0xFF121212) : const Color(0xFFFEFEFE),
+      toolbarHeight: 70,
     ),
   );
 }

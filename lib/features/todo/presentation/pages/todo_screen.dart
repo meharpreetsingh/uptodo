@@ -4,7 +4,9 @@ import 'package:uptodo/common/widgets/global_app_bar.dart';
 class TodoScreen extends StatelessWidget {
   static const String routeName = "/";
   static const String name = "Todo";
-  const TodoScreen({super.key});
+  TodoScreen({super.key});
+
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +16,25 @@ class TodoScreen extends StatelessWidget {
         showProfileIcon: true,
         title: "Index",
       ),
-      body: const Center(
-        child: Text("Todo Screen"),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          children: [
+            TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                border: const OutlineInputBorder(),
+                hintText: "Search for your task...",
+                filled: true,
+                fillColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+                prefixIcon: const Icon(Icons.search),
+              ),
+              onChanged: (String? value) {},
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }

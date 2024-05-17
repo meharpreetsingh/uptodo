@@ -71,7 +71,7 @@ class GoRouterProvider {
             GoRoute(
               path: TodoScreen.routeName,
               name: TodoScreen.name,
-              pageBuilder: (context, state) => _transition(const TodoScreen()),
+              pageBuilder: (context, state) => _transition(TodoScreen()),
             ),
             GoRoute(
               path: ProfileScreen.routeName,
