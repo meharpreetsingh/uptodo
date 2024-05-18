@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uptodo/features/auth/presentation/pages/auth_options_screen.dart';
@@ -9,6 +10,8 @@ import 'package:uptodo/features/general/presentation/pages/base_screen.dart';
 import 'package:uptodo/features/onboard/presentation/pages/onboard_page.dart';
 import 'package:uptodo/features/general/presentation/pages/settings_screen.dart';
 import 'package:uptodo/features/todo/domain/entity/todo.dart';
+import 'package:uptodo/features/todo/presentation/bloc/todo_bloc.dart';
+import 'package:uptodo/features/todo/presentation/pages/todo_archive_screen.dart';
 import 'package:uptodo/features/todo/presentation/pages/todo_details_screen.dart';
 import 'package:uptodo/features/todo/presentation/pages/todo_screen.dart';
 import 'package:uptodo/features/general/presentation/pages/profile_page.dart';
@@ -76,6 +79,20 @@ class GoRouterProvider {
               pageBuilder: (context, state) => _transition(TodoScreen()),
             ),
             GoRoute(
+              path: TodoDetailScreen.routeName,
+              name: TodoDetailScreen.name,
+              redirect: (context, state) {
+                if (state.extra != null) return null;
+                return TodoScreen.routeName;
+              },
+              pageBuilder: (context, state) => _transition(TodoDetailScreen(todo: state.extra as Todo)),
+            ),
+            GoRoute(
+              path: TodoArchiveScreen.routeName,
+              name: TodoArchiveScreen.name,
+              pageBuilder: (context, state) => _transition(const TodoArchiveScreen()),
+            ),
+            GoRoute(
               path: ProfileScreen.routeName,
               name: ProfileScreen.name,
               pageBuilder: (context, state) => _transition(const ProfileScreen()),
@@ -86,15 +103,6 @@ class GoRouterProvider {
           path: AppSettingsScreen.routeName,
           name: AppSettingsScreen.name,
           pageBuilder: (context, state) => _transition(const AppSettingsScreen()),
-        ),
-        GoRoute(
-          path: TodoDetailScreen.routeName,
-          name: TodoDetailScreen.name,
-          redirect: (context, state) {
-            if (state.extra != null) return null;
-            return TodoScreen.routeName;
-          },
-          pageBuilder: (context, state) => _transition(TodoDetailScreen(todo: state.extra as Todo)),
         ),
         GoRoute(
           path: AccountSettingScreen.routeName,
@@ -109,6 +117,7 @@ class GoRouterProvider {
 _transition(Widget widget) {
   return CustomTransitionPage(
     child: widget,
+    transitionDuration: const Duration(milliseconds: 300),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       return FadeTransition(
         opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:uptodo/features/todo/domain/entity/todo.dart';
+import 'package:uptodo/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:uptodo/features/todo/presentation/pages/todo_details_screen.dart';
 
 class TodoItem extends StatelessWidget {
@@ -50,6 +52,7 @@ class TodoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (todo.status == TodoStatus.deleted || todo.status == TodoStatus.archived) return Container(); // Do not show deleted todos
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
@@ -62,7 +65,12 @@ class TodoItem extends StatelessWidget {
           leading: Checkbox(
             visualDensity: VisualDensity.compact,
             value: todo.status == TodoStatus.completed,
-            onChanged: (bool? value) {},
+            onChanged: (bool? value) {
+              if (value == null) return;
+              context.read<TodoBloc>().add(UpdateTodoEvent(
+                    todo.copyWith(status: value ? TodoStatus.completed : TodoStatus.notCompleted),
+                  ));
+            },
           ),
           title: Text(
             todo.title,

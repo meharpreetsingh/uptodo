@@ -7,3 +7,8 @@ final class GetTodosEvent extends TodoEvent {
   final String uid;
   GetTodosEvent(this.uid);
 }
+
+final class UpdateTodoEvent extends TodoEvent {
+  final Todo todo;
+  UpdateTodoEvent(this.todo);
+}

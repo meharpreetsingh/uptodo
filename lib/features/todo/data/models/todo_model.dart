@@ -27,4 +27,31 @@ class TodoModel extends Todo {
       updatedAt: data['updatedAt'] != null ? (data['updatedAt'] as Timestamp).toDate() : null,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'description': description,
+      'status': status.index,
+      'category': category,
+      'priority': priority,
+      'target': target,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
+    };
+  }
+
+  static fromTodo(Todo todo) {
+    return TodoModel(
+      id: todo.id,
+      title: todo.title,
+      description: todo.description,
+      status: todo.status,
+      category: todo.category,
+      priority: todo.priority,
+      target: todo.target,
+      createdAt: todo.createdAt,
+      updatedAt: todo.updatedAt,
+    );
+  }
 }

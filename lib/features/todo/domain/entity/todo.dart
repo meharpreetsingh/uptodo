@@ -22,4 +22,28 @@ class Todo {
     required this.createdAt,
     this.updatedAt,
   });
+
+  Todo copyWith({
+    String? id,
+    String? title,
+    String? description,
+    TodoStatus? status,
+    int? priority,
+    String? category,
+    DateTime? target,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return Todo(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      status: status ?? this.status,
+      priority: priority ?? this.priority,
+      category: category ?? this.category,
+      target: target ?? this.target,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
 }
