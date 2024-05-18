@@ -12,3 +12,8 @@ final class UpdateTodoEvent extends TodoEvent {
   final Todo todo;
   UpdateTodoEvent(this.todo);
 }
+
+final class CreateTodoEvent extends TodoEvent {
+  final Todo todo;
+  CreateTodoEvent(this.todo);
+}

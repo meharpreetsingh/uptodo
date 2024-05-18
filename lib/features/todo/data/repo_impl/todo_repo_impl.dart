@@ -35,4 +35,14 @@ class TodoRepoImpl extends TodoRepo {
       return ResultFuture.error(APIFailure.fromException(e));
     }
   }
+
+  @override
+  ResultFuture<Todo> createTodo(Todo todo) async {
+    try {
+      final result = await _todoRemoteDataSource.createTodo(TodoModel.fromTodo(todo));
+      return Right(result);
+    } on APIException catch (e) {
+      return ResultFuture.error(APIFailure.fromException(e));
+    }
+  }
 }

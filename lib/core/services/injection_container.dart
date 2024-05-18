@@ -20,6 +20,7 @@ import 'package:uptodo/features/theme/presentation/bloc/theme_bloc.dart';
 import 'package:uptodo/features/todo/data/data_source/todo_remote_data_source.dart';
 import 'package:uptodo/features/todo/data/repo_impl/todo_repo_impl.dart';
 import 'package:uptodo/features/todo/domain/repository/todo_repo.dart';
+import 'package:uptodo/features/todo/domain/usecases/create_todo_usecase.dart';
 import 'package:uptodo/features/todo/domain/usecases/get_todos_usecase.dart';
 import 'package:uptodo/features/todo/domain/usecases/update_todo_usecase.dart';
 import 'package:uptodo/features/todo/presentation/bloc/todo_bloc.dart';
@@ -72,9 +73,10 @@ Future<void> initGetIt() async {
   sl.registerLazySingleton<ThemeLocalDataSource>(() => ThemeLocalDataSourceImpl(sharedPreferences: sl())); // Data source
 
   // Features - TODO
-  sl.registerFactory<TodoBloc>(() => TodoBloc(getTodos: sl(), updateTodo: sl())); // Presentation
+  sl.registerFactory<TodoBloc>(() => TodoBloc(getTodos: sl(), updateTodo: sl(), createTodo: sl())); // Presentation
   sl.registerLazySingleton<GetTodos>(() => GetTodos(sl())); // Usecase
   sl.registerLazySingleton<UpdateTodo>(() => UpdateTodo(sl())); // Usecase
+  sl.registerLazySingleton<CreateTodo>(() => CreateTodo(sl()));
   sl.registerLazySingleton<TodoRepo>(() => TodoRepoImpl(sl())); // Repository
-  sl.registerLazySingleton<TodoRemoteDataSource>(() => TodoRemoteDataSourceImpl(sl())); // Data source
+  sl.registerLazySingleton<TodoRemoteDataSource>(() => TodoRemoteDataSourceImpl(sl(), sl())); // Data source
 }

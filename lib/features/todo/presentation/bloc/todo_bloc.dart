@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:uptodo/features/todo/domain/entity/todo.dart';
+import 'package:uptodo/features/todo/domain/usecases/create_todo_usecase.dart';
 import 'package:uptodo/features/todo/domain/usecases/get_todos_usecase.dart';
 import 'package:uptodo/features/todo/domain/usecases/update_todo_usecase.dart';
 
@@ -10,17 +11,20 @@ part 'todo_event.dart';
 part 'todo_state.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
-  TodoBloc({required GetTodos getTodos, required UpdateTodo updateTodo})
+  TodoBloc({required GetTodos getTodos, required UpdateTodo updateTodo, required CreateTodo createTodo})
       : _getTodosUsecase = getTodos,
         _updateTodoUsecase = updateTodo,
+        _createTodoUsecase = createTodo,
         super(TodoInitial()) {
     on<TodoEvent>((event, emit) {});
     on<GetTodosEvent>(_getTodos);
     on<UpdateTodoEvent>(_updateTodo);
+    on<CreateTodoEvent>(_createTodo);
   }
 
   final GetTodos _getTodosUsecase;
   final UpdateTodo _updateTodoUsecase;
+  final CreateTodo _createTodoUsecase;
   StreamSubscription<List<Todo>>? _todoStreamSubscription;
 
   @override
@@ -53,5 +57,12 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         // TODO: Implement update todo
       },
     );
+  }
+
+  FutureOr<void> _createTodo(CreateTodoEvent event, Emitter<TodoState> emit) async {
+    final result = await _createTodoUsecase(event.todo);
+    result.fold((failure) => emit(TodoError(failure.message)), (todo) {
+      // TODO: Implement create todo
+    });
   }
 }

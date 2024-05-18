@@ -12,6 +12,7 @@ import 'package:uptodo/features/general/presentation/pages/settings_screen.dart'
 import 'package:uptodo/features/todo/domain/entity/todo.dart';
 import 'package:uptodo/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:uptodo/features/todo/presentation/pages/todo_archive_screen.dart';
+import 'package:uptodo/features/todo/presentation/pages/todo_create_screen.dart';
 import 'package:uptodo/features/todo/presentation/pages/todo_details_screen.dart';
 import 'package:uptodo/features/todo/presentation/pages/todo_screen.dart';
 import 'package:uptodo/features/general/presentation/pages/profile_page.dart';
@@ -91,6 +92,11 @@ class GoRouterProvider {
               path: TodoArchiveScreen.routeName,
               name: TodoArchiveScreen.name,
               pageBuilder: (context, state) => _transition(const TodoArchiveScreen()),
+            ),
+            GoRoute(
+              path: TodoCreateScreen.routeName,
+              name: TodoCreateScreen.name,
+              pageBuilder: (context, state) => _transition(const TodoCreateScreen()),
             ),
             GoRoute(
               path: ProfileScreen.routeName,

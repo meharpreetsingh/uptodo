@@ -7,4 +7,5 @@ abstract class TodoRepo {
   Either<Failure, Stream<List<Todo>>> getTodos(String uid);
   ResultFuture<Todo> getTodoById(String id);
   ResultFuture<Todo> updateTodo(Todo todo);
+  ResultFuture<Todo> createTodo(Todo todo);
 }

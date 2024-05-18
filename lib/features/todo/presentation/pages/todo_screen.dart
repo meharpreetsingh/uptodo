@@ -62,8 +62,9 @@ class TodoScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 Expanded(
-                    child: ListView.builder(
+                    child: ListView.separated(
                   itemCount: state.todos.length,
+                  separatorBuilder: (context, index) => const SizedBox(height: 3),
                   itemBuilder: (context, index) {
                     final todo = state.todos[index];
                     return TodoItem(todo: todo);
