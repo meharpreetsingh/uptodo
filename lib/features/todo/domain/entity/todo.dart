@@ -5,6 +5,7 @@ class Todo {
   final String title;
   final String description;
   final TodoStatus status;
+  final int? priority;
   final String? category;
   final DateTime? target;
   final DateTime createdAt;
@@ -15,6 +16,7 @@ class Todo {
     required this.title,
     required this.description,
     required this.status,
+    this.priority,
     this.category,
     this.target,
     required this.createdAt,

@@ -9,6 +9,7 @@ class TodoModel extends Todo {
     required super.status,
     super.category,
     super.target,
+    super.priority,
     required super.createdAt,
     super.updatedAt,
   });
@@ -20,6 +21,7 @@ class TodoModel extends Todo {
       description: data['description'],
       status: TodoStatus.values[data['status']],
       category: data['category'],
+      priority: data['priority'],
       target: data['target'] != null ? (data['target'] as Timestamp).toDate() : null,
       createdAt: (data['createdAt'] as Timestamp).toDate(),
       updatedAt: data['updatedAt'] != null ? (data['updatedAt'] as Timestamp).toDate() : null,

@@ -8,6 +8,8 @@ import 'package:uptodo/features/auth/presentation/pages/register_screen.dart';
 import 'package:uptodo/features/general/presentation/pages/base_screen.dart';
 import 'package:uptodo/features/onboard/presentation/pages/onboard_page.dart';
 import 'package:uptodo/features/general/presentation/pages/settings_screen.dart';
+import 'package:uptodo/features/todo/domain/entity/todo.dart';
+import 'package:uptodo/features/todo/presentation/pages/todo_details_screen.dart';
 import 'package:uptodo/features/todo/presentation/pages/todo_screen.dart';
 import 'package:uptodo/features/general/presentation/pages/profile_page.dart';
 import 'package:uptodo/features/user/presentation/pages/account_screen.dart';
@@ -84,6 +86,15 @@ class GoRouterProvider {
           path: AppSettingsScreen.routeName,
           name: AppSettingsScreen.name,
           pageBuilder: (context, state) => _transition(const AppSettingsScreen()),
+        ),
+        GoRoute(
+          path: TodoDetailScreen.routeName,
+          name: TodoDetailScreen.name,
+          redirect: (context, state) {
+            if (state.extra != null) return null;
+            return TodoScreen.routeName;
+          },
+          pageBuilder: (context, state) => _transition(TodoDetailScreen(todo: state.extra as Todo)),
         ),
         GoRoute(
           path: AccountSettingScreen.routeName,

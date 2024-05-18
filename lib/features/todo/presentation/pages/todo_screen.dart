@@ -4,6 +4,7 @@ import 'package:uptodo/common/widgets/global_app_bar.dart';
 import 'package:uptodo/features/todo/domain/entity/todo.dart';
 import 'package:uptodo/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:uptodo/features/todo/presentation/widgets/empty_todo.dart';
+import 'package:uptodo/features/todo/presentation/widgets/todo_item.dart';
 
 class TodoScreen extends StatelessWidget {
   static const String routeName = "/";
@@ -54,21 +55,14 @@ class TodoScreen extends StatelessWidget {
                     itemCount: state.todos.length,
                     itemBuilder: (context, index) {
                       final todo = state.todos[index];
-                      return ListTile(
-                        title: Text(todo.title),
-                        subtitle: Text(todo.description),
-                        trailing: Checkbox(
-                          value: todo.status == TodoStatus.completed,
-                          onChanged: (bool? value) {},
-                        ),
-                      );
+                      return TodoItem(todo: todo);
                     },
                   )),
                 ],
               ),
             );
           }
-          return const EmptyTodoList(isEmpty: false, message: "Something went wrong!");
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );
