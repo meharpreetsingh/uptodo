@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:uptodo/common/widgets/global_app_bar.dart';
 import 'package:uptodo/features/todo/domain/entity/todo.dart';
 import 'package:uptodo/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:uptodo/features/todo/presentation/widgets/todo_item.dart';
@@ -28,8 +27,6 @@ class _TodoCalenderScreenState extends State<TodoCalenderScreen> {
       builder: (context, state) {
         if (state is! TodoLoaded) return const Center(child: CircularProgressIndicator());
         final todos = state.todos;
-
-        // Create Event Map for the calendar
         final eventMap = <DateTime, List<Todo>>{};
         for (final todo in todos) {
           if (todo.target == null || ![TodoStatus.notCompleted, TodoStatus.completed].contains(todo.status)) continue;
@@ -37,67 +34,68 @@ class _TodoCalenderScreenState extends State<TodoCalenderScreen> {
           eventMap.putIfAbsent(date, () => <Todo>[]).add(todo);
         }
 
-        // Function get events for the selected day
-        List<Todo> getEventsForDay(DateTime day) {
-          return eventMap[day] ?? [];
-        }
+        List<Todo> getEventsForDay(DateTime day) => eventMap[day] ?? [];
+        _selectedEvents = getEventsForDay(_selectedDay);
 
         return Scaffold(
-          body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TableCalendar(
-                    headerStyle: const HeaderStyle(
-                      formatButtonVisible: true,
-                      titleCentered: true,
-                    ),
-                    locale: 'en_US',
-                    calendarStyle: CalendarStyle(
-                      todayTextStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface),
-                      todayDecoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        border: Border.all(color: Theme.of(context).colorScheme.primary.withOpacity(0.6)),
-                        // borderRadius: BorderRadius.circular(4.0),
-                      ),
-                      selectedDecoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primary,
-                        shape: BoxShape.rectangle,
-                        // borderRadius: BorderRadius.circular(4.0),
-                      ),
-                      markersMaxCount: 1,
-                    ),
-                    firstDay: DateTime.utc(2024, 1, 1),
-                    lastDay: DateTime.utc(2030, 12, 31),
-                    focusedDay: _selectedDay,
-                    eventLoader: getEventsForDay,
-                    calendarFormat: _calendarFormat,
-                    selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-                    onDaySelected: (selectedDay, focusedDay) {
-                      if (!isSameDay(_selectedDay, selectedDay)) {
-                        setState(() => _selectedDay = selectedDay);
-                        _selectedEvents = getEventsForDay(selectedDay);
-                      }
-                    },
-                    onFormatChanged: (format) {
-                      if (_calendarFormat != format) {
-                        setState(() => _calendarFormat = format);
-                      }
-                    },
+          appBar: globalAppBar(
+            context: context,
+            toolbarHeight: 40,
+            title: "Calendar",
+          ),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TableCalendar(
+                  headerStyle: const HeaderStyle(
+                    formatButtonVisible: true,
+                    titleCentered: true,
                   ),
-                  const SizedBox(height: 20),
-                  Expanded(
-                      child: ListView.separated(
-                    itemCount: _selectedEvents.length,
-                    separatorBuilder: (context, index) => const SizedBox(height: 5),
-                    itemBuilder: (context, index) {
-                      return TodoItem(todo: _selectedEvents[index]);
-                    },
-                  ))
-                ],
-              ),
+                  locale: 'en_US',
+                  calendarStyle: CalendarStyle(
+                    todayTextStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+                    todayDecoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Theme.of(context).colorScheme.primary.withOpacity(0.6)),
+                      // borderRadius: BorderRadius.circular(4.0),
+                    ),
+                    selectedDecoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                      shape: BoxShape.circle,
+                      // borderRadius: BorderRadius.circular(4.0),
+                    ),
+                    markersMaxCount: 1,
+                  ),
+                  firstDay: DateTime.utc(2024, 1, 1),
+                  lastDay: DateTime.utc(2030, 12, 31),
+                  focusedDay: _selectedDay,
+                  eventLoader: getEventsForDay,
+                  calendarFormat: _calendarFormat,
+                  selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+                  onDaySelected: (selectedDay, focusedDay) {
+                    if (!isSameDay(_selectedDay, selectedDay)) {
+                      setState(() => _selectedDay = selectedDay);
+                      _selectedEvents = getEventsForDay(selectedDay);
+                    }
+                  },
+                  onFormatChanged: (format) {
+                    if (_calendarFormat != format) {
+                      setState(() => _calendarFormat = format);
+                    }
+                  },
+                ),
+                const SizedBox(height: 20),
+                Expanded(
+                    child: ListView.separated(
+                  itemCount: _selectedEvents.length,
+                  separatorBuilder: (context, index) => const SizedBox(height: 5),
+                  itemBuilder: (context, index) {
+                    return TodoItem(todo: _selectedEvents[index]);
+                  },
+                ))
+              ],
             ),
           ),
         );

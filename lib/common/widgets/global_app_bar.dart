@@ -10,20 +10,15 @@ AppBar globalAppBar({
   List<Widget>? actions,
   Widget? leading,
   bool showBackButton = false,
+  double? toolbarHeight,
 }) {
-  Widget backButton() {
-    return IconButton(
-      icon: SvgPicture.asset(
-        "assets/svg/icons/arrow-left.svg",
-        color: Theme.of(context).colorScheme.onSurface,
-      ),
-      onPressed: () {
-        context.pop();
-      },
-    );
-  }
+  Widget backButton() => IconButton(
+        icon: SvgPicture.asset("assets/svg/icons/arrow-left.svg", color: Theme.of(context).colorScheme.onSurface),
+        onPressed: () => context.pop(),
+      );
 
   return AppBar(
+    toolbarHeight: toolbarHeight ?? 80,
     leading: leading ?? (showBackButton ? backButton() : null),
     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     centerTitle: true,
