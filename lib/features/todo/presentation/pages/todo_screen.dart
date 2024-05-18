@@ -9,11 +9,16 @@ import 'package:uptodo/features/todo/presentation/pages/todo_archive_screen.dart
 import 'package:uptodo/features/todo/presentation/widgets/empty_todo.dart';
 import 'package:uptodo/features/todo/presentation/widgets/todo_item.dart';
 
-class TodoScreen extends StatelessWidget {
+class TodoScreen extends StatefulWidget {
   static const String routeName = "/";
   static const String name = "Todo";
-  TodoScreen({super.key});
+  const TodoScreen({super.key});
 
+  @override
+  State<TodoScreen> createState() => _TodoScreenState();
+}
+
+class _TodoScreenState extends State<TodoScreen> {
   final TextEditingController _searchController = TextEditingController();
 
   @override
@@ -40,10 +45,9 @@ class TodoScreen extends StatelessWidget {
           if (state is TodoInitial) return const Center(child: CircularProgressIndicator());
           if (state is TodoError) return EmptyTodoList(isEmpty: false, message: state.message);
           if (state is! TodoLoaded) return const EmptyTodoList(isEmpty: true);
-          final bool isAnyTodoToShow = state.todos.isNotEmpty &&
-              state.todos.any((element) => element.status == TodoStatus.notCompleted || element.status == TodoStatus.completed);
-          if (!isAnyTodoToShow) return const EmptyTodoList(isEmpty: true);
-
+          if (!state.todos.any((e) => [TodoStatus.notCompleted, TodoStatus.notCompleted].contains(e.status))) {
+            return const EmptyTodoList(isEmpty: true);
+          }
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
@@ -58,7 +62,10 @@ class TodoScreen extends StatelessWidget {
                     fillColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
                     prefixIcon: const Icon(Icons.search),
                   ),
-                  onChanged: (String? value) {},
+                  onChanged: (String? value) {
+                    if (value == null || value.isEmpty) return;
+                    setState(() {});
+                  },
                 ),
                 const SizedBox(height: 20),
                 Expanded(
