@@ -26,7 +26,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   final UpdateUser _updateUser;
   final UpdatePhotoUrl _updatePhotoUrl;
 
-  Future<FutureOr<void>> _onGetUser(GetUserEvent event, Emitter<UserState> emit) async {
+  FutureOr<void> _onGetUser(GetUserEvent event, Emitter<UserState> emit) async {
     emit(UserLoading());
     final result = await _getUser();
     result.fold(

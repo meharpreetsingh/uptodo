@@ -25,8 +25,12 @@ abstract class AuthRemoteDataSource {
 
 // Implementation of AuthRemoteDataSource
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  AuthRemoteDataSourceImpl({
+    required this.auth,
+    required this.firestore,
+  });
+  final FirebaseAuth auth;
+  final FirebaseFirestore firestore;
 
   @override
   Future<void> loginUser({required String emailId, required String password}) async {

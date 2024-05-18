@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uptodo/config/routes/router.dart';
@@ -14,6 +17,11 @@ import 'package:uptodo/features/theme/domain/repository/theme_repo.dart';
 import 'package:uptodo/features/theme/domain/usecases/get_theme_mode.dart';
 import 'package:uptodo/features/theme/domain/usecases/set_theme_mode.dart';
 import 'package:uptodo/features/theme/presentation/bloc/theme_bloc.dart';
+import 'package:uptodo/features/todo/data/data_source/todo_remote_data_source.dart';
+import 'package:uptodo/features/todo/data/repo_impl/todo_repo_impl.dart';
+import 'package:uptodo/features/todo/domain/repository/todo_repo.dart';
+import 'package:uptodo/features/todo/domain/usecases/get_todos_usecase.dart';
+import 'package:uptodo/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:uptodo/features/user/data/data_sources/user_remote_data_source.dart';
 import 'package:uptodo/features/user/data/repository/user_repo_impl.dart';
 import 'package:uptodo/features/user/domain/repository/user_repo.dart';
@@ -26,10 +34,16 @@ final sl = GetIt.instance;
 
 /// Initialize the service locator
 Future<void> initGetIt() async {
-  // External
+  // Local Storage
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   sl.registerLazySingleton<SharedPreferences>(() => prefs);
 
+  // Firebase
+  sl.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
+  sl.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);
+  sl.registerLazySingleton<FirebaseStorage>(() => FirebaseStorage.instance);
+
+  // Router
   final GoRouterProvider goRouterProvider = GoRouterProvider();
   sl.registerLazySingleton<GoRouterProvider>(() => goRouterProvider);
 
@@ -39,7 +53,7 @@ Future<void> initGetIt() async {
   sl.registerLazySingleton<LoginUser>(() => LoginUser(sl())); // Usecase
   sl.registerLazySingleton<LogoutUser>(() => LogoutUser(sl())); // Usecase
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(sl())); // Repository
-  sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl()); // Data source
+  sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl(auth: sl(), firestore: sl())); // Data source
 
   // Features - User
   sl.registerFactory<UserBloc>(() => UserBloc(getUser: sl(), updateUser: sl(), updatePhotoUrl: sl())); // Presentation
@@ -55,4 +69,10 @@ Future<void> initGetIt() async {
   sl.registerLazySingleton<SetThemeMode>(() => SetThemeMode(sl())); // Usecase
   sl.registerLazySingleton<ThemeRepo>(() => ThemeRepoImpl(sl())); // Repository
   sl.registerLazySingleton<ThemeLocalDataSource>(() => ThemeLocalDataSourceImpl(sharedPreferences: sl())); // Data source
+
+  // Features - TODO
+  sl.registerFactory<TodoBloc>(() => TodoBloc(getTodos: sl())); // Presentation
+  sl.registerLazySingleton<GetTodos>(() => GetTodos(sl())); // Usecase
+  sl.registerLazySingleton<TodoRepo>(() => TodoRepoImpl(sl())); // Repository
+  sl.registerLazySingleton<TodoRemoteDataSource>(() => TodoRemoteDataSourceImpl(sl())); // Data source
 }
