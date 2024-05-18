@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:uptodo/features/todo/presentation/pages/todo_calender_screen.dart';
 import 'package:uptodo/features/todo/presentation/pages/todo_screen.dart';
 import 'package:uptodo/features/general/presentation/pages/profile_page.dart';
 
@@ -26,7 +27,9 @@ class MainBottomAppBar extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              context.go(TodoCalenderScreen.routeName);
+            },
             icon: SvgPicture.asset(
               "assets/svg/icons/calendar.svg",
               color: Theme.of(context).colorScheme.onSurface,
