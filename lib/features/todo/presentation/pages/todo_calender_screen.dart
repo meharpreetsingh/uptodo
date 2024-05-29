@@ -17,7 +17,7 @@ class TodoCalenderScreen extends StatefulWidget {
 }
 
 class _TodoCalenderScreenState extends State<TodoCalenderScreen> {
-  DateTime _selectedDay = DateTime.now();
+  DateTime _selectedDay = DateTime.utc(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
   List<Todo> _selectedEvents = [];
 
@@ -88,13 +88,16 @@ class _TodoCalenderScreenState extends State<TodoCalenderScreen> {
                 ),
                 const SizedBox(height: 20),
                 Expanded(
-                    child: ListView.separated(
-                  itemCount: _selectedEvents.length,
-                  separatorBuilder: (context, index) => const SizedBox(height: 5),
-                  itemBuilder: (context, index) {
-                    return TodoItem(todo: _selectedEvents[index]);
-                  },
-                ))
+                  child: _selectedEvents.isEmpty
+                      ? const Center(child: Text("No events"))
+                      : ListView.separated(
+                          itemCount: _selectedEvents.length,
+                          separatorBuilder: (context, index) => const SizedBox(height: 5),
+                          itemBuilder: (context, index) {
+                            return TodoItem(todo: _selectedEvents[index]);
+                          },
+                        ),
+                )
               ],
             ),
           ),

@@ -45,7 +45,7 @@ class _TodoScreenState extends State<TodoScreen> {
           if (state is TodoInitial) return const Center(child: CircularProgressIndicator());
           if (state is TodoError) return EmptyTodoList(isEmpty: false, message: state.message);
           if (state is! TodoLoaded) return const EmptyTodoList(isEmpty: true);
-          if (!state.todos.any((e) => [TodoStatus.notCompleted, TodoStatus.notCompleted].contains(e.status))) {
+          if (!state.todos.any((e) => [TodoStatus.notCompleted, TodoStatus.completed].contains(e.status))) {
             return const EmptyTodoList(isEmpty: true);
           }
           return Padding(
