@@ -29,6 +29,8 @@ dependencies:
   dartz: ^0.10.1
   get_it: ^7.6.7
   table_calendar: ^3.1.1
+  flutter_dnd: ^0.1.4+1
+  app_usage: ^3.0.1
 
 
 # -------------- Packages End -------------- #

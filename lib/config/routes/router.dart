@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uptodo/features/auth/presentation/pages/auth_options_screen.dart';
 import 'package:uptodo/features/auth/presentation/pages/login_screen.dart';
 import 'package:uptodo/features/auth/presentation/pages/register_screen.dart';
+import 'package:uptodo/features/focus/presentation/pages/focus_screen.dart';
 import 'package:uptodo/features/general/presentation/pages/base_screen.dart';
 import 'package:uptodo/features/onboard/presentation/pages/onboard_page.dart';
 import 'package:uptodo/features/general/presentation/pages/settings_screen.dart';
@@ -103,6 +104,11 @@ class GoRouterProvider {
               path: TodoCalenderScreen.routeName,
               name: TodoCalenderScreen.name,
               pageBuilder: (context, state) => _transition(const TodoCalenderScreen()),
+            ),
+            GoRoute(
+              path: FocusModeScreen.routeName,
+              name: FocusModeScreen.name,
+              pageBuilder: (context, state) => _transition(const FocusModeScreen()),
             ),
             GoRoute(
               path: ProfileScreen.routeName,
