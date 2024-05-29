@@ -23,6 +23,7 @@ class FocusModeScreen extends StatelessWidget {
             StopwatchTimer(),
             SizedBox(height: 20),
             AppUsageData(),
+            SizedBox(height: 40),
           ],
         ),
       ),
