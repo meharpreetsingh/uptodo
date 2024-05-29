@@ -23,10 +23,10 @@ class _AppUsageDataState extends State<AppUsageData> {
   @override
   void initState() {
     super.initState();
+    getApps();
     startDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
     endDate = DateTime.now();
     getAppUsage(startDate: startDate, endDate: endDate);
-    getApps();
   }
 
   getApps() async {
@@ -37,6 +37,7 @@ class _AppUsageDataState extends State<AppUsageData> {
   getAppUsage({required DateTime startDate, required DateTime endDate}) async {
     setState(() => isLoading = true);
     appUsageInfoList = await appUsage.getAppUsage(startDate, endDate);
+    if (appUsageInfoList != null) appUsageInfoList!.sort((a, b) => b.usage.inMilliseconds.compareTo(a.usage.inMilliseconds));
     setState(() => isLoading = false);
   }
 
@@ -144,13 +145,13 @@ class _AppUsageDataState extends State<AppUsageData> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: ListTile(
-                  leading: app != null
-                      ? Image.memory(app.icon)
-                      : SvgPicture.asset(
-                          "assets/svg/icons/android.svg",
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                  title: Text(usage.appName),
+                  leading: app != null ? Image.memory(app.icon) : const CircularProgressIndicator(),
+
+                  // : SvgPicture.asset(
+                  //     "assets/svg/icons/android.svg",
+                  //     color: Theme.of(context).colorScheme.onSurface,
+                  //   ),
+                  title: Text(app?.appName ?? usage.packageName),
                   subtitle: Text("Usage: $usageTime"),
                 ),
               );
