@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AboutUsScreen extends StatelessWidget {
-  const AboutUsScreen({super.key});
+class CreditScreen extends StatelessWidget {
+  const CreditScreen({super.key});
   static const String routeName = "/about";
   static const String name = "About Us";
 

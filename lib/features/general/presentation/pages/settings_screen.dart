@@ -16,6 +16,7 @@ class AppSettingsScreen extends StatefulWidget {
 
 class _AppSettingsScreenState extends State<AppSettingsScreen> {
   late ThemeBloc themeBloc;
+
   _changeThemeMode() {
     if (themeBloc.state is ThemeLightState) {
       themeBloc.add(ToggleDarkModeEvent());
@@ -61,7 +62,8 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 "Settings",
                 style: TextStyle(
                   fontSize: 14,
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                 ),
               ),
               const SizedBox(height: 10),
@@ -117,7 +119,8 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 "Import",
                 style: TextStyle(
                   fontSize: 14,
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                 ),
               ),
               const SizedBox(height: 10),
