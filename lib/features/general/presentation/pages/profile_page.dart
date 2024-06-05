@@ -5,6 +5,11 @@ import 'package:go_router/go_router.dart';
 import 'package:uptodo/common/widgets/global_app_bar.dart';
 import 'package:uptodo/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:uptodo/features/general/presentation/pages/settings_screen.dart';
+import 'package:uptodo/features/general/presentation/pages/static/about_screen.dart';
+import 'package:uptodo/features/general/presentation/pages/static/faq_screen.dart';
+import 'package:uptodo/features/general/presentation/pages/static/help_screen.dart';
+import 'package:uptodo/features/general/presentation/pages/static/privacy_security_screen.dart';
+import 'package:uptodo/features/general/presentation/pages/static/support_screen.dart';
 import 'package:uptodo/features/user/presentation/bloc/user_bloc.dart';
 import 'package:uptodo/features/user/presentation/pages/account_screen.dart';
 
@@ -69,7 +74,10 @@ class ProfileScreen extends StatelessWidget {
                   "Settings",
                   style: TextStyle(
                     fontSize: 14,
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.6),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -87,16 +95,17 @@ class ProfileScreen extends StatelessWidget {
                     width: 24,
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
-                  onTap: () {
-                    context.push(AppSettingsScreen.routeName);
-                  },
+                  onTap: () => context.push(AppSettingsScreen.routeName),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   "Account",
                   style: TextStyle(
                     fontSize: 14,
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.6),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -114,9 +123,7 @@ class ProfileScreen extends StatelessWidget {
                     width: 24,
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
-                  onTap: () {
-                    context.push(AccountSettingScreen.routeName);
-                  },
+                  onTap: () => context.push(AccountSettingScreen.routeName),
                 ),
                 const SizedBox(height: 5),
                 ListTile(
@@ -133,14 +140,17 @@ class ProfileScreen extends StatelessWidget {
                     width: 24,
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
-                  onTap: () {},
+                  onTap: () => context.push(PrivacySecurityScreen.routeName),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   "UpTodo",
                   style: TextStyle(
                     fontSize: 14,
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.6),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -158,7 +168,7 @@ class ProfileScreen extends StatelessWidget {
                     width: 24,
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
-                  onTap: () {},
+                  onTap: () => context.push(AboutUsScreen.routeName),
                 ),
                 const SizedBox(height: 5),
                 ListTile(
@@ -175,7 +185,7 @@ class ProfileScreen extends StatelessWidget {
                     width: 24,
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
-                  onTap: () {},
+                  onTap: () => context.push(FaqScreen.routeName),
                 ),
                 const SizedBox(height: 5),
                 ListTile(
@@ -192,7 +202,7 @@ class ProfileScreen extends StatelessWidget {
                     width: 24,
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
-                  onTap: () {},
+                  onTap: () => context.push(HelpScreen.routeName),
                 ),
                 const SizedBox(height: 5),
                 ListTile(
@@ -209,7 +219,7 @@ class ProfileScreen extends StatelessWidget {
                     width: 24,
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
-                  onTap: () {},
+                  onTap: () => context.push(SupportUsScreen.routeName),
                 ),
                 const SizedBox(height: 20),
                 ListTile(
@@ -225,10 +235,7 @@ class ProfileScreen extends StatelessWidget {
                       color: Theme.of(context).colorScheme.error,
                     ),
                   ),
-                  onTap: () {
-                    context.read<AuthBloc>().add(AuthLogoutEvent());
-                    // context.go(AuthOptionsScreen.routeName);
-                  },
+                  onTap: () => context.read<AuthBloc>().add(AuthLogoutEvent()),
                 ),
                 const SizedBox(height: 20),
               ],
