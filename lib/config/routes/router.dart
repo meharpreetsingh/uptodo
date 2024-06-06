@@ -157,7 +157,7 @@ class GoRouterProvider {
         GoRoute(
           path: FaqScreen.routeName,
           name: FaqScreen.name,
-          pageBuilder: (context, state) => _transition(const FaqScreen()),
+          pageBuilder: (context, state) => _transition(FaqScreen()),
         ),
         GoRoute(
           path: HelpScreen.routeName,
