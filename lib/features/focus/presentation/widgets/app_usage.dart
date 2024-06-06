@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 
 import 'package:app_usage/app_usage.dart';
 import 'package:flutter/material.dart';

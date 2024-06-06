@@ -47,8 +47,9 @@ class GoRouterProvider {
           AuthOptionsScreen.routeName
         ];
         if (user == null &&
-            !authRoutes.any((route) => state.fullPath!.contains(route)))
+            !authRoutes.any((route) => state.fullPath!.contains(route))) {
           return AuthOptionsScreen.routeName;
+        }
 
         return null;
       },
