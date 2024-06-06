@@ -29,7 +29,8 @@ class _LoginFormState extends State<LoginForm> {
   _submitLoginFormHandler() {
     FocusScope.of(context).unfocus();
     if (!_formKey.currentState!.validate()) return;
-    auth.add(AuthLoginEvent(emailId: _emailController.value.text, password: _passwordController.value.text));
+    auth.add(AuthLoginEvent(
+        emailId: _emailController.value.text, password: _passwordController.value.text));
   }
 
   @override

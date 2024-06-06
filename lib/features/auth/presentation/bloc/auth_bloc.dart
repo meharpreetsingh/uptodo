@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:uptodo/features/auth/domain/usecases/google_signin.dart';
 import 'package:uptodo/features/auth/domain/usecases/login_user.dart';
 import 'package:uptodo/features/auth/domain/usecases/logout_user.dart';
 import 'package:uptodo/features/auth/domain/usecases/register_user.dart';
@@ -14,9 +15,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required this.registerUser,
     required this.loginUser,
     required this.logoutUser,
+    required this.googleSignIn,
   }) : super(AuthInitial()) {
     on<AuthEvent>((event, emit) {});
     on<AuthLoginEvent>(_onAuthLogin);
+    on<AuthGoogleSignInEvent>(_onAuthGoogleSignIn);
     on<AuthRegisterEvent>(_onAuthRegister);
     on<AuthLogoutEvent>(_onAuthLogout);
   }
@@ -24,6 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final RegisterUser registerUser;
   final LoginUser loginUser;
   final LogoutUser logoutUser;
+  final GoogleSignIn googleSignIn;
 
   FutureOr<void> _onAuthLogin(AuthLoginEvent event, Emitter<AuthState> emit) async {
     final String emailId = event.emailId;
@@ -32,6 +36,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final result = await loginUser(LoginUserParams(emailId: emailId, password: password));
     result.fold(
       (l) => emit(AuthLoginError(l.message)),
+      (r) => emit(AuthLoginSuccess()),
+    );
+  }
+
+  FutureOr<void> _onAuthGoogleSignIn(AuthGoogleSignInEvent event, Emitter<AuthState> emit) async {
+    // emit(AuthGoogleSignInLoading());
+    final result = await googleSignIn();
+    result.fold(
+      (l) => emit(AuthGoogleSignInError(l.message)),
       (r) => emit(AuthLoginSuccess()),
     );
   }

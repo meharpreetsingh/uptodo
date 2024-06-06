@@ -15,6 +15,9 @@ abstract class AuthRepository {
     required String password,
   });
 
+  ResultVoid googleSignIn();
+  // ResultVoid appleSignIn();
+
   ResultVoid updatePassword({
     required String uid,
     required String password,
