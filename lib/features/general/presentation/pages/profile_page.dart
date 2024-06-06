@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:uptodo/common/widgets/global_app_bar.dart';
 import 'package:uptodo/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:uptodo/features/general/presentation/pages/settings_screen.dart';
-import 'package:uptodo/features/general/presentation/pages/static/credit_screen.dart';
 import 'package:uptodo/features/general/presentation/pages/static/faq_screen.dart';
 import 'package:uptodo/features/general/presentation/pages/static/help_screen.dart';
 import 'package:uptodo/features/general/presentation/pages/static/privacy_security_screen.dart';
@@ -154,23 +153,23 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                ListTile(
-                  leading: SvgPicture.asset(
-                    "assets/svg/icons/menu.svg",
-                    height: 24,
-                    width: 24,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-                  title: const Text("Credits"),
-                  trailing: SvgPicture.asset(
-                    "assets/svg/icons/arrow-right.svg",
-                    height: 24,
-                    width: 24,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-                  onTap: () => context.push(CreditScreen.routeName),
-                ),
-                const SizedBox(height: 5),
+                // ListTile(
+                //   leading: SvgPicture.asset(
+                //     "assets/svg/icons/menu.svg",
+                //     height: 24,
+                //     width: 24,
+                //     color: Theme.of(context).colorScheme.onSurface,
+                //   ),
+                //   title: const Text("Credits"),
+                //   trailing: SvgPicture.asset(
+                //     "assets/svg/icons/arrow-right.svg",
+                //     height: 24,
+                //     width: 24,
+                //     color: Theme.of(context).colorScheme.onSurface,
+                //   ),
+                //   onTap: () => context.push(CreditScreen.routeName),
+                // ),
+                // const SizedBox(height: 5),
                 ListTile(
                   leading: SvgPicture.asset(
                     "assets/svg/icons/info-circle.svg",

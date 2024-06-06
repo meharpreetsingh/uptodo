@@ -7,7 +7,6 @@ import 'package:uptodo/features/auth/presentation/pages/login_screen.dart';
 import 'package:uptodo/features/auth/presentation/pages/register_screen.dart';
 import 'package:uptodo/features/focus/presentation/pages/focus_screen.dart';
 import 'package:uptodo/features/general/presentation/pages/base_screen.dart';
-import 'package:uptodo/features/general/presentation/pages/static/credit_screen.dart';
 import 'package:uptodo/features/general/presentation/pages/static/faq_screen.dart';
 import 'package:uptodo/features/general/presentation/pages/static/help_screen.dart';
 import 'package:uptodo/features/general/presentation/pages/static/privacy_security_screen.dart';
@@ -148,11 +147,6 @@ class GoRouterProvider {
           name: AccountSettingScreen.name,
           pageBuilder: (context, state) =>
               _transition(const AccountSettingScreen()),
-        ),
-        GoRoute(
-          path: CreditScreen.routeName,
-          name: CreditScreen.name,
-          pageBuilder: (context, state) => _transition(const CreditScreen()),
         ),
         GoRoute(
           path: FaqScreen.routeName,
