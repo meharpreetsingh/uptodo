@@ -120,7 +120,7 @@ class SupportUsScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              if (Platform.isAndroid)
+              if (Platform.isAndroid || Platform.isIOS)
                 ListTile(
                   onTap: () {
                     try {
@@ -133,10 +133,10 @@ class SupportUsScreen extends StatelessWidget {
                     }
                   },
                   leading: SvgPicture.asset(
-                    'assets/svg/icons/play.svg',
+                    'assets/svg/icons/bag-2.svg',
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
-                  title: const Text("Google Play Store"),
+                  title: const Text("Rate Uptodo"),
                 )
             ],
           ),
