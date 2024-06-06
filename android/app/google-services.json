@@ -7,12 +7,25 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:34151291925:android:a30e1523a778fb404bc21c",
+        "mobilesdk_app_id": "1:34151291925:android:83290e3e05507ed34bc21c",
         "android_client_info": {
           "package_name": "com.devbymehar.UpTodo"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "34151291925-cu8q377tqehnc5gb8vgdqv5rbnlj4d8v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devbymehar.UpTodo",
+            "certificate_hash": "7cca17959ee3c278c0a88b6c420e90e2dd9d7fd9"
+          }
+        },
+        {
+          "client_id": "34151291925-mh92v7el04oajfgkau1cb82sp2e3v1b5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC5ppSqvGvF30gV44kf2--MWEH6vug9xj8"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34151291925-mh92v7el04oajfgkau1cb82sp2e3v1b5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "34151291925-7a08707r8bvckv8oskifnm1okqi803me.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.devbymehar.UpTodo"
+              }
+            }
+          ]
         }
       }
     }

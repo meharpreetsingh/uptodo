@@ -41,7 +41,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyBV8W4zLeILbhGB98Easf1LfAJww64peYU',
-    appId: '1:34151291925:web:f811fd43c48713fa4bc21c',
+    appId: '1:34151291925:web:561ca263391a7a1f4bc21c',
     messagingSenderId: '34151291925',
     projectId: 'uptodo-bloc',
     authDomain: 'uptodo-bloc.firebaseapp.com',
@@ -50,7 +50,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyC5ppSqvGvF30gV44kf2--MWEH6vug9xj8',
-    appId: '1:34151291925:android:a30e1523a778fb404bc21c',
+    appId: '1:34151291925:android:83290e3e05507ed34bc21c',
     messagingSenderId: '34151291925',
     projectId: 'uptodo-bloc',
     storageBucket: 'uptodo-bloc.appspot.com',
@@ -58,28 +58,33 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBR7pHxGm1qTZIaXm1nrw0hdqUv2C5zNqM',
-    appId: '1:34151291925:ios:4f959265f70cea8e4bc21c',
+    appId: '1:34151291925:ios:0eea73622a7a57394bc21c',
     messagingSenderId: '34151291925',
     projectId: 'uptodo-bloc',
     storageBucket: 'uptodo-bloc.appspot.com',
+    androidClientId: '34151291925-14b1r84v86miu12q91p7l1bddt5db47d.apps.googleusercontent.com',
+    iosClientId: '34151291925-7a08707r8bvckv8oskifnm1okqi803me.apps.googleusercontent.com',
     iosBundleId: 'com.devbymehar.UpTodo',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyBR7pHxGm1qTZIaXm1nrw0hdqUv2C5zNqM',
-    appId: '1:34151291925:ios:4f959265f70cea8e4bc21c',
+    appId: '1:34151291925:ios:0eea73622a7a57394bc21c',
     messagingSenderId: '34151291925',
     projectId: 'uptodo-bloc',
     storageBucket: 'uptodo-bloc.appspot.com',
+    androidClientId: '34151291925-14b1r84v86miu12q91p7l1bddt5db47d.apps.googleusercontent.com',
+    iosClientId: '34151291925-7a08707r8bvckv8oskifnm1okqi803me.apps.googleusercontent.com',
     iosBundleId: 'com.devbymehar.UpTodo',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
     apiKey: 'AIzaSyBV8W4zLeILbhGB98Easf1LfAJww64peYU',
-    appId: '1:34151291925:web:dd7cc6c9871ec1384bc21c',
+    appId: '1:34151291925:web:581df81a5035b9764bc21c',
     messagingSenderId: '34151291925',
     projectId: 'uptodo-bloc',
     authDomain: 'uptodo-bloc.firebaseapp.com',
     storageBucket: 'uptodo-bloc.appspot.com',
   );
+
 }

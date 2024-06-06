@@ -42,11 +42,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       if (e.code == 'user-not-found') {
         throw const APIException(message: "No user found for that email.", statusCode: 404);
       } else if (e.code == 'wrong-password') {
-        throw const APIException(
-            message: 'Wrong password provided for that user.', statusCode: 401);
+        throw const APIException(message: 'Wrong password provided for that user.', statusCode: 401);
       } else if (e.code == 'invalid-credential') {
-        throw const APIException(
-            message: 'Credentials are incorrect, malformed or has expired.', statusCode: 401);
+        throw const APIException(message: 'Credentials are incorrect, malformed or has expired.', statusCode: 401);
       } else {
         throw const APIException(message: "Something went wrong!", statusCode: 505);
       }
@@ -60,13 +58,24 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       if (googleUser == null) {
         throw const APIException(message: "No user selected in Google SignIn", statusCode: 404);
       }
+      String? uid = await _checkUserExists(googleUser.email);
+      if (uid == null) {
+        final response = await auth.createUserWithEmailAndPassword(email: googleUser.email, password: "\$google\$1234\$");
+        uid = response.user!.uid;
+        await _createUserDetails(
+          uid: uid,
+          name: googleUser.displayName ?? "User",
+          emailId: googleUser.email,
+          createdAt: DateTime.now(),
+          photoUrl: googleUser.photoUrl,
+        );
+      }
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      // Once signed in, return the UserCredential
-      await FirebaseAuth.instance.signInWithCredential(credential);
+      await auth.signInWithCredential(credential);
     } catch (e) {
       if (e is APIException) rethrow;
       log("[signInWithGoogle] $e");
@@ -80,12 +89,11 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required String name,
     required String emailId,
     required String password,
+    String? photoUrl,
   }) async {
     try {
-      final response =
-          await auth.createUserWithEmailAndPassword(email: emailId, password: password);
-      await _createUserDetails(
-          uid: response.user!.uid, name: name, emailId: emailId, createdAt: createdAt);
+      final response = await auth.createUserWithEmailAndPassword(email: emailId, password: password);
+      await _createUserDetails(uid: response.user!.uid, name: name, emailId: emailId, createdAt: createdAt, photoUrl: photoUrl);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw const APIException(message: "Weak Password", statusCode: 400);
@@ -104,20 +112,33 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required String name,
     required String emailId,
     required DateTime createdAt,
+    String? photoUrl,
   }) async {
     try {
       await firestore.collection('users').doc(uid).set({
         'name': name,
         'email': emailId,
         'createdAt': createdAt,
+        'photoUrl': photoUrl,
       });
     } catch (e) {
       throw const APIException(message: "Failed to store user details!", statusCode: 505);
     }
   }
 
+  Future<String?> _checkUserExists(String emailId) async {
+    try {
+      final response = await firestore.collection('users').where('email', isEqualTo: emailId).get();
+      if (response.docs.isNotEmpty) return response.docs.first.id;
+      return null;
+    } catch (e) {
+      throw const APIException(message: "Failed to check user exists!", statusCode: 505);
+    }
+  }
+
   @override
   Future<void> logoutUser() async {
+    await GoogleSignIn().signOut();
     auth.signOut();
   }
 
