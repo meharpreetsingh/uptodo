@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 class GetPriorityDialog extends StatefulWidget {
@@ -58,7 +59,13 @@ class _GetPriorityDialogState extends State<GetPriorityDialog> {
               ),
               itemBuilder: (context, index) => gridOptionButton(
                 context: context,
-                icon: Icons.flag_outlined,
+                icon: SvgPicture.asset(
+                  "assets/svg/icons/flag.svg",
+                  width: 26,
+                  height: 26,
+                  fit: BoxFit.contain,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
                 text: priorities[index].toString(),
                 isCurrent: priority == priorities[index],
                 selectedColor: Theme.of(context).colorScheme.primary,
@@ -116,7 +123,7 @@ class _GetPriorityDialogState extends State<GetPriorityDialog> {
 ElevatedButton gridOptionButton({
   required BuildContext context,
   required bool isCurrent,
-  required IconData icon,
+  required Widget icon,
   required String text,
   required Function onPressed,
   Color? backgroundColor,
@@ -140,7 +147,7 @@ ElevatedButton gridOptionButton({
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(icon, size: 24),
+        icon,
         const SizedBox(width: 8),
         Text(
           text,

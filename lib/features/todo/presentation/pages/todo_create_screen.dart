@@ -2,8 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:uptodo/features/category/domain/entity/category.dart';
 import 'package:uptodo/features/todo/domain/entity/todo.dart';
 import 'package:uptodo/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:uptodo/features/todo/presentation/pages/todo_screen.dart';
@@ -23,6 +25,7 @@ class _TodoCreateScreenState extends State<TodoCreateScreen> {
   bool isProcessing = false;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
+  Category? category;
   DateTime? targetDTime;
   String errorText = "";
   int priority = 1;
@@ -31,19 +34,16 @@ class _TodoCreateScreenState extends State<TodoCreateScreen> {
   _getDateTimeInput({DateTime? initialDateTime}) async {
     final now = DateTime.now();
     DateTime? userDateInput = await _getDateInput(initialDateTime ?? now);
+    if (userDateInput == null) return;
     TimeOfDay? userTimeInput = await _getTimeInput(TimeOfDay.fromDateTime(initialDateTime ?? now));
-    if (userDateInput == null) {
-      targetDTime = null;
-    } else {
-      targetDTime = DateTime(
-        userDateInput.year,
-        userDateInput.month,
-        userDateInput.day,
-        userTimeInput?.hour ?? 0,
-        userTimeInput?.minute ?? 0,
-      );
-      setState(() => errorText = "");
-    }
+    targetDTime = DateTime(
+      userDateInput.year,
+      userDateInput.month,
+      userDateInput.day,
+      userTimeInput?.hour ?? 0,
+      userTimeInput?.minute ?? 0,
+    );
+    setState(() => errorText = "");
   }
 
   Future<DateTime?> _getDateInput(DateTime? initialDate) async {
@@ -162,7 +162,6 @@ class _TodoCreateScreenState extends State<TodoCreateScreen> {
                 ),
               ),
               const SizedBox(height: 10),
-
               Row(
                 children: [
                   TextButton.icon(
@@ -173,7 +172,13 @@ class _TodoCreateScreenState extends State<TodoCreateScreen> {
                       ),
                     ),
                     onPressed: () => _getDateTimeInput(initialDateTime: targetDTime),
-                    icon: const Icon(Icons.timer_outlined),
+                    icon: SvgPicture.asset(
+                      "assets/svg/icons/timer.svg",
+                      width: 26,
+                      height: 26,
+                      fit: BoxFit.contain,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
                     label: Text(
                       targetDTime != null ? getSubtitle(targetDTime!) : "Default",
                     ),
@@ -192,19 +197,6 @@ class _TodoCreateScreenState extends State<TodoCreateScreen> {
                   ],
                 ],
               ),
-              // const SizedBox(height: 10),
-              // TextButton.icon(
-              //   style: TextButton.styleFrom(
-              //     foregroundColor: category != null ? category!.foreground : Theme.of(context).colorScheme.onSurface,
-              //     backgroundColor: category != null ? category!.background : Theme.of(context).scaffoldBackgroundColor,
-              //     shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.circular(4),
-              //     ),
-              //   ),
-              //   onPressed: () => _getCategory(initialCategory: category),
-              //   icon: Icon(category != null ? category!.icon : Icons.category_outlined),
-              //   label: Text(category == null ? "Default" : category!.name),
-              // ),
               const SizedBox(height: 10),
               TextButton.icon(
                 style: TextButton.styleFrom(
@@ -214,8 +206,32 @@ class _TodoCreateScreenState extends State<TodoCreateScreen> {
                   ),
                 ),
                 onPressed: () => _getPriority(initialPriority: priority),
-                icon: const Icon(Icons.flag_outlined),
+                icon: SvgPicture.asset(
+                  "assets/svg/icons/flag.svg",
+                  width: 26,
+                  height: 26,
+                  fit: BoxFit.contain,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
                 label: Text(priority == 1 ? "Default" : priority.toString()),
+              ),
+              const SizedBox(height: 10),
+              TextButton.icon(
+                style: TextButton.styleFrom(
+                  foregroundColor: Theme.of(context).colorScheme.onSurface,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+                onPressed: () => _getPriority(initialPriority: priority),
+                icon: SvgPicture.asset(
+                  "assets/svg/icons/tag.svg",
+                  width: 26,
+                  height: 26,
+                  fit: BoxFit.contain,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+                label: Text(category == null ? "Default" : category!.name),
               ),
               const SizedBox(height: 10),
               if (errorText.isNotEmpty) ...[
