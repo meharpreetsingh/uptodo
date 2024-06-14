@@ -18,6 +18,7 @@ import 'package:uptodo/features/category/domain/repo/category_repo.dart';
 import 'package:uptodo/features/category/domain/usecases/create_category_usecase.dart';
 import 'package:uptodo/features/category/domain/usecases/get_categories_usecase.dart';
 import 'package:uptodo/features/category/domain/usecases/update_category_usecase.dart';
+import 'package:uptodo/features/category/presentation/bloc/category_bloc.dart';
 import 'package:uptodo/features/theme/data/data_sources/theme_local_data_source.dart';
 import 'package:uptodo/features/theme/data/repository_impl/theme_repo_impl.dart';
 import 'package:uptodo/features/theme/domain/repository/theme_repo.dart';
@@ -90,7 +91,9 @@ Future<void> initGetIt() async {
   sl.registerLazySingleton<TodoRemoteDataSource>(() => TodoRemoteDataSourceImpl(sl(), sl())); // Data source
 
   // Features - Category
-  // sl.registerFactory<CategoryBloc>(() => CategoryBloc(getCategories: sl(), updateCategory: sl(), createCategory: sl())); // Presentation
+  sl.registerFactory<CategoryBloc>(
+    () => CategoryBloc(getCategories: sl(), updateCategories: sl(), createCategory: sl()),
+  ); // Presentation
   sl.registerLazySingleton<GetCategoriesUsecase>(() => GetCategoriesUsecase(sl())); // Usecase
   sl.registerLazySingleton<UpdateCategoryUsecase>(() => UpdateCategoryUsecase(sl())); // Usecase
   sl.registerLazySingleton<CreateCategoryUsecase>(() => CreateCategoryUsecase(sl())); // Usecase

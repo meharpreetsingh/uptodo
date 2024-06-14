@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:uptodo/common/widgets/main_bottom_nav_bar.dart';
 import 'package:uptodo/core/services/injection_container.dart';
+import 'package:uptodo/features/category/presentation/bloc/category_bloc.dart';
 import 'package:uptodo/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:uptodo/features/todo/presentation/pages/todo_create_screen.dart';
 
@@ -15,8 +16,11 @@ class CommonMainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl.get<TodoBloc>()..add(GetTodosEvent(uid)),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => sl.get<TodoBloc>()..add(GetTodosEvent(uid))),
+        BlocProvider(create: (context) => sl.get<CategoryBloc>()..add(GetCategoriesEvent(uid))),
+      ],
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         bottomNavigationBar: const MainBottomAppBar(),

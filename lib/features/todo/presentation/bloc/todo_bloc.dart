@@ -25,11 +25,11 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final GetTodos _getTodosUsecase;
   final UpdateTodo _updateTodoUsecase;
   final CreateTodo _createTodoUsecase;
-  StreamSubscription<List<Todo>>? _todoStreamSubscription;
+  // StreamSubscription<List<Todo>>? _todoStreamSubscription;
 
   @override
   Future<void> close() {
-    _todoStreamSubscription?.cancel();
+    // _todoStreamSubscription?.cancel();
     return super.close();
   }
 
@@ -40,9 +40,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       (failure) => emit(TodoError(failure.message)),
       (todoStream) => emit.forEach(
         todoStream,
-        onData: (data) {
-          return TodoLoaded(data);
-        },
+        onData: (data) => TodoLoaded(data),
       ),
     );
     // _todoStreamSubscription?.cancel();
