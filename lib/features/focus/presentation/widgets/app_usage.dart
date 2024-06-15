@@ -1,4 +1,3 @@
-
 import 'package:app_usage/app_usage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,6 +17,7 @@ class _AppUsageDataState extends State<AppUsageData> {
   AppUsage appUsage = AppUsage();
   List<Application>? apps;
   bool isLoading = true;
+  String durationSelected = 'Today';
 
   @override
   void initState() {
@@ -29,14 +29,16 @@ class _AppUsageDataState extends State<AppUsageData> {
   }
 
   getApps() async {
-    apps = await DeviceApps.getInstalledApplications(includeAppIcons: true, includeSystemApps: true);
+    apps =
+        await DeviceApps.getInstalledApplications(includeAppIcons: true, includeSystemApps: true);
     setState(() => isLoading = false);
   }
 
   getAppUsage({required DateTime startDate, required DateTime endDate}) async {
     setState(() => isLoading = true);
     appUsageInfoList = await appUsage.getAppUsage(startDate, endDate);
-    if (appUsageInfoList != null) appUsageInfoList!.sort((a, b) => b.usage.inMilliseconds.compareTo(a.usage.inMilliseconds));
+    if (appUsageInfoList != null)
+      appUsageInfoList!.sort((a, b) => b.usage.inMilliseconds.compareTo(a.usage.inMilliseconds));
     setState(() => isLoading = false);
   }
 
@@ -48,7 +50,8 @@ class _AppUsageDataState extends State<AppUsageData> {
         break;
       case 'Yesterday':
         startDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 1);
-        endDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 1, 23, 59, 59);
+        endDate =
+            DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 1, 23, 59, 59);
         break;
       case 'Last 7 Days':
         startDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 6);
@@ -59,6 +62,7 @@ class _AppUsageDataState extends State<AppUsageData> {
         endDate = DateTime.now();
         break;
     }
+    setState(() => durationSelected = value);
     getAppUsage(startDate: startDate, endDate: endDate);
   }
 
@@ -95,7 +99,7 @@ class _AppUsageDataState extends State<AppUsageData> {
               DropdownMenu(
                 width: 150,
                 textStyle: const TextStyle(fontSize: 12),
-                initialSelection: 'Today',
+                initialSelection: durationSelected,
                 inputDecorationTheme: InputDecorationTheme(
                     fillColor: Theme.of(context).colorScheme.surface,
                     filled: true,
@@ -134,7 +138,8 @@ class _AppUsageDataState extends State<AppUsageData> {
             itemCount: appUsageInfoList!.length,
             itemBuilder: (context, index) {
               AppUsageInfo usage = appUsageInfoList![index];
-              final String usageTime = "${usage.usage.inMinutes ~/ 60} hours ${usage.usage.inMinutes % 60} minutes";
+              final String usageTime =
+                  "${usage.usage.inMinutes ~/ 60} hours ${usage.usage.inMinutes % 60} minutes";
               ApplicationWithIcon? app = getAppFromPackageName(usage.packageName);
               if (app != null && app.systemApp) return Container();
               return Container(
