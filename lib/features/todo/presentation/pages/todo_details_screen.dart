@@ -20,7 +20,8 @@ class TodoDetailScreen extends StatelessWidget {
     final tomorrow = DateTime(now.year, now.month, now.day + 1);
     if (dueDateTime.day == now.day) {
       subtitle = "Today At ${DateFormat(' hh:mm a').format(dueDateTime)}";
-    } else if (DateFormat('yyyy-MM-dd').format(dueDateTime) == DateFormat('yyyy-MM-dd').format(tomorrow)) {
+    } else if (DateFormat('yyyy-MM-dd').format(dueDateTime) ==
+        DateFormat('yyyy-MM-dd').format(tomorrow)) {
       subtitle = "Tomorrow At ${DateFormat(' hh:mm a').format(dueDateTime)}";
     } else {
       subtitle = DateFormat('E, d MMM, hh:mm a').format(dueDateTime);
@@ -119,7 +120,12 @@ class TodoDetailScreen extends StatelessWidget {
                   _todoDetailTile(
                     context,
                     title: "Task Time: ",
-                    icon: const Icon(Icons.access_alarm),
+                    icon: SvgPicture.asset(
+                      "assets/svg/icons/clock.svg",
+                      height: 21,
+                      width: 21,
+                      fit: BoxFit.contain,
+                    ),
                     buttonText: getSubtitle(stateTodo.target!),
                   ),
                 // TODO: Add Category Logic Here
@@ -153,7 +159,9 @@ class TodoDetailScreen extends StatelessWidget {
                           color: Theme.of(context).colorScheme.error,
                         ),
                         onPressed: () {
-                          context.read<TodoBloc>().add(UpdateTodoEvent(todo.copyWith(status: TodoStatus.deleted)));
+                          context
+                              .read<TodoBloc>()
+                              .add(UpdateTodoEvent(todo.copyWith(status: TodoStatus.deleted)));
                           context.pop();
                         },
                         label: Text(
@@ -177,8 +185,9 @@ class TodoDetailScreen extends StatelessWidget {
                               : "assets/svg/icons/archive.svg",
                           width: 18,
                           height: 18,
-                          color:
-                              stateTodo.status == TodoStatus.archived ? Theme.of(context).colorScheme.onSurface : Colors.yellow,
+                          color: stateTodo.status == TodoStatus.archived
+                              ? Theme.of(context).colorScheme.onSurface
+                              : Colors.yellow,
                         ),
                         onPressed: () {
                           context.read<TodoBloc>().add(
@@ -194,8 +203,9 @@ class TodoDetailScreen extends StatelessWidget {
                         label: Text(
                           stateTodo.status == TodoStatus.archived ? "Un-Archive" : "Archive",
                           style: TextStyle(
-                            color:
-                                stateTodo.status == TodoStatus.archived ? Theme.of(context).colorScheme.onSurface : Colors.yellow,
+                            color: stateTodo.status == TodoStatus.archived
+                                ? Theme.of(context).colorScheme.onSurface
+                                : Colors.yellow,
                           ),
                         ),
                       ),
