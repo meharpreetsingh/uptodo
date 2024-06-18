@@ -135,13 +135,11 @@ class _AppUsageDataState extends State<AppUsageData> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: ListTile(
-                  leading: const CircularProgressIndicator(),
-
-                  // : SvgPicture.asset(
-                  //     "assets/svg/icons/android.svg",
-                  //     color: Theme.of(context).colorScheme.onSurface,
-                  //   ),
-                  title: Text(usage.packageName),
+                  leading: SvgPicture.asset(
+                    "assets/svg/icons/android.svg",
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                  title: Text(usage.packageName.split('.').last),
                   subtitle: Text("Usage: $usageTime"),
                 ),
               );
