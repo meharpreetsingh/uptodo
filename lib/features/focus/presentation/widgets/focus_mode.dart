@@ -23,6 +23,15 @@ class _StopwatchTimerState extends State<StopwatchTimer> {
     super.initState();
     checkDNDPermission().then((value) {
       setState(() => isDNDPermissionGranted = value);
+      if (value == false) {
+        timer = Timer.periodic(const Duration(seconds: 2), (timer) async {
+          final bool permission = await checkDNDPermission();
+          if (permission) {
+            setState(() => isDNDPermissionGranted = true);
+            timer.cancel();
+          }
+        });
+      }
     });
   }
 

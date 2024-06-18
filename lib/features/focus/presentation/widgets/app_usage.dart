@@ -1,7 +1,7 @@
 import 'package:app_usage/app_usage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:device_apps/device_apps.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class AppUsageData extends StatefulWidget {
   const AppUsageData({super.key});
@@ -15,30 +15,26 @@ class _AppUsageDataState extends State<AppUsageData> {
   late DateTime endDate;
   List<AppUsageInfo>? appUsageInfoList;
   AppUsage appUsage = AppUsage();
-  List<Application>? apps;
   bool isLoading = true;
   String durationSelected = 'Today';
 
   @override
   void initState() {
     super.initState();
-    getApps();
+  }
+
+  requestUsageAccess() {
     startDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
     endDate = DateTime.now();
     getAppUsage(startDate: startDate, endDate: endDate);
   }
 
-  getApps() async {
-    apps =
-        await DeviceApps.getInstalledApplications(includeAppIcons: true, includeSystemApps: true);
-    setState(() => isLoading = false);
-  }
-
   getAppUsage({required DateTime startDate, required DateTime endDate}) async {
     setState(() => isLoading = true);
     appUsageInfoList = await appUsage.getAppUsage(startDate, endDate);
-    if (appUsageInfoList != null)
+    if (appUsageInfoList != null) {
       appUsageInfoList!.sort((a, b) => b.usage.inMilliseconds.compareTo(a.usage.inMilliseconds));
+    }
     setState(() => isLoading = false);
   }
 
@@ -66,22 +62,14 @@ class _AppUsageDataState extends State<AppUsageData> {
     getAppUsage(startDate: startDate, endDate: endDate);
   }
 
-  /// Get App Icon from package name
-  ApplicationWithIcon? getAppFromPackageName(String packageName) {
-    try {
-      if (apps == null) return null;
-      Application? targetApp = apps!.firstWhere((app) => app.packageName == packageName);
-      if (targetApp is ApplicationWithIcon) return targetApp;
-    } catch (e) {
-      return null;
-    }
-    return null;
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (appUsageInfoList == null || isLoading) {
-      return const Center(child: CircularProgressIndicator());
+    if (appUsageInfoList == null) {
+      return Center(
+          child: TextButton(
+        child: const Text("Show App Usage"),
+        onPressed: () => requestUsageAccess(),
+      ));
     }
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -140,8 +128,6 @@ class _AppUsageDataState extends State<AppUsageData> {
               AppUsageInfo usage = appUsageInfoList![index];
               final String usageTime =
                   "${usage.usage.inMinutes ~/ 60} hours ${usage.usage.inMinutes % 60} minutes";
-              ApplicationWithIcon? app = getAppFromPackageName(usage.packageName);
-              if (app != null && app.systemApp) return Container();
               return Container(
                 margin: const EdgeInsets.only(bottom: 10),
                 decoration: BoxDecoration(
@@ -149,13 +135,13 @@ class _AppUsageDataState extends State<AppUsageData> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: ListTile(
-                  leading: app != null ? Image.memory(app.icon) : const CircularProgressIndicator(),
+                  leading: const CircularProgressIndicator(),
 
                   // : SvgPicture.asset(
                   //     "assets/svg/icons/android.svg",
                   //     color: Theme.of(context).colorScheme.onSurface,
                   //   ),
-                  title: Text(app?.appName ?? usage.packageName),
+                  title: Text(usage.packageName),
                   subtitle: Text("Usage: $usageTime"),
                 ),
               );
