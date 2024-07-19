@@ -48,7 +48,7 @@ android {
         applicationId "com.devbymehar.UpTodo"
         multiDexEnabled true
         minSdkVersion 21 // flutter.minSdkVersion // 24
-        targetSdkVersion flutter.targetSdkVersion
+        targetSdkVersion 34 // flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

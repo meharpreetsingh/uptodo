@@ -60,7 +60,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       }
       String? uid = await _checkUserExists(googleUser.email);
       if (uid == null) {
-        final response = await auth.createUserWithEmailAndPassword(email: googleUser.email, password: "\$google\$1234\$");
+        final response = await auth.createUserWithEmailAndPassword(
+          email: googleUser.email,
+          password: "\$google\$1234\$",
+        );
         uid = response.user!.uid;
         await _createUserDetails(
           uid: uid,
@@ -93,7 +96,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }) async {
     try {
       final response = await auth.createUserWithEmailAndPassword(email: emailId, password: password);
-      await _createUserDetails(uid: response.user!.uid, name: name, emailId: emailId, createdAt: createdAt, photoUrl: photoUrl);
+      await _createUserDetails(
+          uid: response.user!.uid, name: name, emailId: emailId, createdAt: createdAt, photoUrl: photoUrl);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw const APIException(message: "Weak Password", statusCode: 400);
