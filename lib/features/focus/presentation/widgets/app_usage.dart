@@ -1,7 +1,6 @@
 import 'package:app_usage/app_usage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class AppUsageData extends StatefulWidget {
   const AppUsageData({super.key});
