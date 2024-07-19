@@ -8,6 +8,7 @@ import 'package:uptodo/features/auth/data/data_source/auth_remote_data_source.da
 import 'package:uptodo/features/auth/data/repository_impl/auth_repository_impl.dart';
 import 'package:uptodo/features/auth/domain/repository/auth_repo.dart';
 import 'package:uptodo/features/auth/domain/usecases/google_signin.dart';
+import 'package:uptodo/features/auth/domain/usecases/google_signup.dart';
 import 'package:uptodo/features/auth/domain/usecases/login_user.dart';
 import 'package:uptodo/features/auth/domain/usecases/logout_user.dart';
 import 'package:uptodo/features/auth/domain/usecases/register_user.dart';
@@ -58,14 +59,21 @@ Future<void> initGetIt() async {
   sl.registerLazySingleton<GoRouterProvider>(() => goRouterProvider);
 
   // Features - Auth
-  sl.registerFactory<AuthBloc>(
-      () => AuthBloc(loginUser: sl(), googleSignIn: sl(), registerUser: sl(), logoutUser: sl())); // Presentation
+  sl.registerFactory<AuthBloc>(() => AuthBloc(
+        loginUser: sl(),
+        googleSignIn: sl(),
+        registerUser: sl(),
+        logoutUser: sl(),
+        googleSignUp: sl(),
+      )); // Presentation
   sl.registerLazySingleton<RegisterUser>(() => RegisterUser(sl())); // Usecase
   sl.registerLazySingleton<LoginUser>(() => LoginUser(sl())); // Usecase
   sl.registerLazySingleton(() => GoogleSignIn(sl())); // Usecase
+  sl.registerLazySingleton(() => GoogleSignUp(sl())); // Usecase
   sl.registerLazySingleton<LogoutUser>(() => LogoutUser(sl())); // Usecase
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(sl())); // Repository
-  sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl(auth: sl(), firestore: sl())); // Data source
+  sl.registerLazySingleton<AuthRemoteDataSource>(
+      () => AuthRemoteDataSourceImpl(auth: sl(), firestore: sl())); // Data source
 
   // Features - User
   sl.registerFactory<UserBloc>(() => UserBloc(getUser: sl(), updateUser: sl(), updatePhotoUrl: sl())); // Presentation
@@ -80,7 +88,8 @@ Future<void> initGetIt() async {
   sl.registerLazySingleton<GetThemeMode>(() => GetThemeMode(sl())); // Usecase
   sl.registerLazySingleton<SetThemeMode>(() => SetThemeMode(sl())); // Usecase
   sl.registerLazySingleton<ThemeRepo>(() => ThemeRepoImpl(sl())); // Repository
-  sl.registerLazySingleton<ThemeLocalDataSource>(() => ThemeLocalDataSourceImpl(sharedPreferences: sl())); // Data source
+  sl.registerLazySingleton<ThemeLocalDataSource>(
+      () => ThemeLocalDataSourceImpl(sharedPreferences: sl())); // Data source
 
   // Features - Todo
   sl.registerFactory<TodoBloc>(() => TodoBloc(getTodos: sl(), updateTodo: sl(), createTodo: sl())); // Presentation

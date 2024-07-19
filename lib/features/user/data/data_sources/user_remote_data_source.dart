@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -28,6 +29,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       if (!userDoc.exists) throw const APIException(message: "User not found", statusCode: 404);
       return UserModel.fromFirestoreDoc(userDoc);
     } catch (e) {
+      log("[getUser] ${e.toString()}");
       throw APIException(message: e.toString(), statusCode: 505);
     }
   }

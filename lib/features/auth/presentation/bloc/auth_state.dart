@@ -26,6 +26,10 @@ final class AuthGoogleSignInError extends AuthLoginError {
   const AuthGoogleSignInError(String message) : super(message);
 }
 
+final class AuthGoogleSignUpError extends AuthLoginError {
+  const AuthGoogleSignUpError(String message) : super(message);
+}
+
 final class AuthLogoutError extends AuthState {
   const AuthLogoutError(this.message);
   final String message;

@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:uptodo/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:uptodo/features/auth/presentation/pages/login_screen.dart';
 import 'package:uptodo/features/auth/presentation/widgets/register_form.dart';
 
@@ -47,7 +49,9 @@ class RegisterScreen extends StatelessWidget {
               const SizedBox(height: 20),
               if (Platform.isAndroid || kIsWeb)
                 OutlinedButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.read<AuthBloc>().add(AuthGoogleSignUpEvent());
+                  },
                   icon: SvgPicture.asset(
                     "assets/svg/icons/google_g_logo.svg",
                     fit: BoxFit.contain,

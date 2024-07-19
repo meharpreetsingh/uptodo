@@ -36,6 +36,16 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  ResultVoid googleSignUp() async {
+    try {
+      await _remoteDataSource.signUpWithGoogle();
+      return const Right(null);
+    } on APIException catch (e) {
+      return Left(APIFailure.fromException(e));
+    }
+  }
+
+  @override
   ResultVoid logoutUser() async {
     try {
       await _remoteDataSource.logoutUser();

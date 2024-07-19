@@ -17,6 +17,8 @@ class AuthLoginEvent extends AuthEvent {
 
 class AuthGoogleSignInEvent extends AuthEvent {}
 
+class AuthGoogleSignUpEvent extends AuthEvent {}
+
 class AuthRegisterEvent extends AuthEvent {
   final String name;
   final String emailId;
