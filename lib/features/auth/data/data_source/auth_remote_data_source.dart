@@ -118,7 +118,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         createdAt: DateTime.now(),
         photoUrl: googleUser.photoUrl,
       );
-      log("[signUpWithGoogle] User created with Google");
     } catch (e) {
       if (e is APIException) rethrow;
       log("[signUpWithGoogle] $e");
@@ -178,6 +177,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         'photoUrl': photoUrl,
         'password': password,
       });
+      log("[_createUserDetails] User details stored successfully!");
     } catch (e) {
       log("[_createUserDetails] $e");
       throw const APIException(message: "Failed to store user details!", statusCode: 505);

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:uptodo/core/error/exceptions.dart';
 import 'package:uptodo/core/error/failure.dart';
@@ -17,6 +19,7 @@ class UserRepoImpl implements UserRepo {
       final result = await _remoteDataSource.getUser();
       return Right(result);
     } on APIException catch (e) {
+      log("[getUserData] Error: ${e.message}");
       return Left(APIFailure.fromException(e));
     }
   }

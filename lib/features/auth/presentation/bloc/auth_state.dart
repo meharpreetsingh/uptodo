@@ -17,16 +17,20 @@ final class AuthLoginSuccess extends AuthState {}
 
 final class AuthRegisterSuccess extends AuthState {}
 
-final class AuthLoginError extends AuthState {
-  const AuthLoginError(this.message);
+final class AuthError extends AuthState {
+  const AuthError(this.message);
   final String message;
 }
 
-final class AuthGoogleSignInError extends AuthLoginError {
+final class AuthLoginError extends AuthError {
+  const AuthLoginError(String message) : super(message);
+}
+
+final class AuthGoogleSignInError extends AuthError {
   const AuthGoogleSignInError(String message) : super(message);
 }
 
-final class AuthGoogleSignUpError extends AuthLoginError {
+final class AuthGoogleSignUpError extends AuthError {
   const AuthGoogleSignUpError(String message) : super(message);
 }
 

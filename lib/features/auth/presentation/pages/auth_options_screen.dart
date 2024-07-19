@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -19,6 +20,29 @@ class AuthOptionsScreen extends StatefulWidget {
 }
 
 class _AuthOptionsScreenState extends State<AuthOptionsScreen> {
+  late AuthBloc _authBloc;
+  bool _isSigningIn = false;
+  late StreamSubscription _authBlocSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    _authBloc = context.read<AuthBloc>();
+    _authBlocSubscription = _authBloc.stream.listen((state) {
+      if (state is AuthGoogleSignInLoading) {
+        setState(() => _isSigningIn = true);
+      } else {
+        setState(() => _isSigningIn = false);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _authBlocSubscription.cancel();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,21 +96,24 @@ class _AuthOptionsScreenState extends State<AuthOptionsScreen> {
             ]),
             const SizedBox(height: 10),
             if (Platform.isAndroid || kIsWeb)
-              OutlinedButton.icon(
-                onPressed: () {
-                  context.read<AuthBloc>().add(AuthGoogleSignInEvent());
-                },
-                icon: SvgPicture.asset(
-                  "assets/svg/icons/google_g_logo.svg",
-                  fit: BoxFit.contain,
-                  height: 24,
-                  width: 24,
-                ),
-                label: const Text("Log in / Sign up with Google"),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: Theme.of(context).colorScheme.onSurface,
-                ),
-              ),
+              _isSigningIn
+                  ? const Center(child: CircularProgressIndicator())
+                  : OutlinedButton.icon(
+                      onPressed: () {
+                        if (_isSigningIn) return;
+                        context.read<AuthBloc>().add(AuthGoogleSignInEvent());
+                      },
+                      icon: SvgPicture.asset(
+                        "assets/svg/icons/google_g_logo.svg",
+                        fit: BoxFit.contain,
+                        height: 24,
+                        width: 24,
+                      ),
+                      label: const Text("Log in / Sign up with Google"),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
             // TODO Setup Apple Sign In
             if (Platform.isIOS || kIsWeb)
               OutlinedButton.icon(

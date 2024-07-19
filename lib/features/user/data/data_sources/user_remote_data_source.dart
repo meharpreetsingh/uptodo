@@ -14,9 +14,14 @@ abstract class UserRemoteDataSource {
 }
 
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final FirebaseStorage storage = FirebaseStorage.instance;
+  UserRemoteDataSourceImpl({
+    required this.auth,
+    required this.firestore,
+    required this.storage,
+  });
+  final FirebaseAuth auth;
+  final FirebaseFirestore firestore;
+  final FirebaseStorage storage;
 
   @override
   Future<UserModel> getUser() async {

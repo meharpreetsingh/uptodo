@@ -82,7 +82,11 @@ Future<void> initGetIt() async {
   sl.registerLazySingleton<UpdateUser>(() => UpdateUser(sl())); // Usecase
   sl.registerLazySingleton<UpdatePhotoUrl>(() => UpdatePhotoUrl(sl())); // Usecase
   sl.registerLazySingleton<UserRepo>(() => UserRepoImpl(sl())); // Repository
-  sl.registerLazySingleton<UserRemoteDataSource>(() => UserRemoteDataSourceImpl()); // Data source
+  sl.registerLazySingleton<UserRemoteDataSource>(() => UserRemoteDataSourceImpl(
+        auth: sl(),
+        firestore: sl(),
+        storage: sl(),
+      )); // Data source
 
   // Features - Theme
   sl.registerFactory<ThemeBloc>(() => ThemeBloc(getThemeMode: sl(), setThemeMode: sl())); // Presentation
