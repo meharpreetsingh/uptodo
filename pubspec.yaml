@@ -1,7 +1,7 @@
 name: uptodo
 description: "UpTodo | Get your daily reminder of tasks"
 publish_to: "none"
-version: 1.0.0+4
+version: 1.0.0+5
 
 environment:
   sdk: ">=3.2.3 <4.0.0"
@@ -61,6 +61,8 @@ flutter:
   # -------------- Local Fonts -------------- #
   # -------------- Local Fonts Ends --------- #
 # -------------- Versions -------------- #
+# 1.0.0+5 - Closed Testing Release
+# Android: Google Sign In Fix
 # 1.0.0+4 - Closed Testing Release
 # Android: targetSdkVersion 34 Fix
 # 1.0.0+3 - Closed Testing Release
