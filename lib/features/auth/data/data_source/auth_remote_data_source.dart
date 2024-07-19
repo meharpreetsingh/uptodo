@@ -57,7 +57,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       if (googleUser == null) {
-        throw const APIException(message: "No user selected in Google SignIn", statusCode: 404);
+        throw const APIException(
+          message: "No user selected in Google SignIn",
+          statusCode: 404,
+        );
       }
       String? uid = await _checkUserExists(googleUser.email);
       if (uid == null) {
@@ -92,15 +95,21 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       if (googleUser == null) {
-        throw const APIException(message: "No user selected in Google SignIn", statusCode: 404);
+        // No user selected
+        throw const APIException(
+          message: "No user selected in Google SignIn",
+          statusCode: 404,
+        );
       }
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
       String? uid = await _checkUserExists(googleUser.email);
       if (uid == null) {
-        final response = await auth.createUserWithEmailAndPassword(
-          email: googleUser.email,
-          password: "\$google\$1234\$",
-        );
-        uid = response.user!.uid;
+        final UserCredential userCreds = await auth.signInWithCredential(credential);
+        uid = userCreds.user!.uid;
       }
       await _createUserDetails(
         uid: uid,
@@ -109,15 +118,11 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         createdAt: DateTime.now(),
         photoUrl: googleUser.photoUrl,
       );
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-      await auth.signInWithCredential(credential);
+      log("[signUpWithGoogle] User created with Google");
     } catch (e) {
       if (e is APIException) rethrow;
-      log("[signInWithGoogle] $e");
+      log("[signUpWithGoogle] $e");
+      if (e is APIException) rethrow;
       throw const APIException(message: "Something went wrong!", statusCode: 505);
     }
   }
@@ -158,10 +163,11 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required String emailId,
     required DateTime createdAt,
     String? photoUrl,
+    String? password,
   }) async {
     try {
       final user = await firestore.collection('users').doc(uid).get();
-      if (user.data()!.isNotEmpty) {
+      if (user.data() != null) {
         log("[_createUserDetails] User already exists in firestore. ${user.data().toString()}");
         return;
       }
@@ -170,6 +176,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         'email': emailId,
         'createdAt': createdAt,
         'photoUrl': photoUrl,
+        'password': password,
       });
     } catch (e) {
       log("[_createUserDetails] $e");

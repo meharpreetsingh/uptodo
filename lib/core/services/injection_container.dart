@@ -73,7 +73,8 @@ Future<void> initGetIt() async {
   sl.registerLazySingleton<LogoutUser>(() => LogoutUser(sl())); // Usecase
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(sl())); // Repository
   sl.registerLazySingleton<AuthRemoteDataSource>(
-      () => AuthRemoteDataSourceImpl(auth: sl(), firestore: sl())); // Data source
+    () => AuthRemoteDataSourceImpl(auth: sl(), firestore: sl()),
+  ); // Data source
 
   // Features - User
   sl.registerFactory<UserBloc>(() => UserBloc(getUser: sl(), updateUser: sl(), updatePhotoUrl: sl())); // Presentation

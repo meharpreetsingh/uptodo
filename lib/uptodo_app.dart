@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +9,7 @@ import 'package:uptodo/core/services/injection_container.dart';
 import 'package:uptodo/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:uptodo/features/auth/presentation/pages/auth_options_screen.dart';
 import 'package:uptodo/features/theme/presentation/bloc/theme_bloc.dart';
+import 'package:uptodo/features/todo/presentation/pages/todo_screen.dart';
 import 'package:uptodo/features/user/presentation/bloc/user_bloc.dart';
 
 class UptodoApp extends StatelessWidget {
@@ -24,12 +27,17 @@ class UptodoApp extends StatelessWidget {
       ],
       child: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
+          log("AuthBloc State: $state");
           if (state is AuthInitial) router.go(AuthOptionsScreen.routeName);
+          if (state is AuthLoginSuccess) {
+            context.read<UserBloc>().add(GetUserEvent());
+            router.go(TodoScreen.routeName);
+          }
         },
         child: BlocBuilder<ThemeBloc, ThemeState>(
           builder: (context, state) {
             return MaterialApp.router(
-              title: 'TODO',
+              title: 'UpTodo',
               debugShowCheckedModeBanner: false,
               theme: getThemeData(isDark: false),
               darkTheme: getThemeData(isDark: true),

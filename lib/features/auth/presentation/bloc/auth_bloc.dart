@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
@@ -46,6 +47,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   FutureOr<void> _onAuthGoogleSignUp(AuthGoogleSignUpEvent event, Emitter<AuthState> emit) async {
     final result = await googleSignUp();
+    log("Google Sign Up Result: $result");
     result.fold(
       (l) => emit(AuthGoogleSignUpError(l.message)),
       (r) => emit(AuthLoginSuccess()),
