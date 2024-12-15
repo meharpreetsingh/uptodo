@@ -1,7 +1,7 @@
 name: uptodo
 description: "UpTodo | Get your daily reminder of tasks"
 publish_to: "none"
-version: 1.0.0+7
+version: 1.0.1+8
 
 environment:
   sdk: ">=3.2.3 <4.0.0"
@@ -61,7 +61,8 @@ flutter:
   # -------------- Local Fonts -------------- #
   # -------------- Local Fonts Ends --------- #
 # -------------- Versions -------------- #
-# 1.0.0+7 - Current Version
+# 1.0.1+8 - LATEST UPLOAD TO GOOGLE PLAY STORE
+# 1.0.0+7 - IDK What happened here
 # 1.0.0+6 - Rejected by Google Play Store due to policy violation (inactive buttons)
 # 1.0.0+5 - Closed Testing Release
 # Android: Google Sign In Fix
