@@ -17,8 +17,6 @@ ThemeData getThemeData({bool isDark = true}) {
       error: const Color(0xFFFF4949),
       // onError: const Color(0xFF3A0E0E),
       onError: const Color(0xFFFEFEFE),
-      background: isDark ? const Color(0xFF121212) : const Color(0xFFFEFEFE),
-      onBackground: isDark ? const Color(0xFFFEFEFE) : const Color(0xFF121212),
       surface: isDark ? const Color(0xFF363636) : const Color(0xFFC8C8C8),
       onSurface: isDark ? const Color(0xFFFEFEFE).withOpacity(0.87) : const Color(0xFF121212),
     ),

@@ -216,24 +216,24 @@ class _TodoCreateScreenState extends State<TodoCreateScreen> {
                 label: Text(priority == 1 ? "Default" : priority.toString()),
               ),
               const SizedBox(height: 10),
-              TextButton.icon(
-                style: TextButton.styleFrom(
-                  foregroundColor: Theme.of(context).colorScheme.onSurface,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                ),
-                onPressed: () => _getPriority(initialPriority: priority),
-                icon: SvgPicture.asset(
-                  "assets/svg/icons/tag.svg",
-                  width: 26,
-                  height: 26,
-                  fit: BoxFit.contain,
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-                label: Text(category == null ? "Default" : category!.name),
-              ),
-              const SizedBox(height: 10),
+              // TextButton.icon(
+              //   style: TextButton.styleFrom(
+              //     foregroundColor: Theme.of(context).colorScheme.onSurface,
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(4),
+              //     ),
+              //   ),
+              //   onPressed: () => _getPriority(initialPriority: priority),
+              //   icon: SvgPicture.asset(
+              //     "assets/svg/icons/tag.svg",
+              //     width: 26,
+              //     height: 26,
+              //     fit: BoxFit.contain,
+              //     color: Theme.of(context).colorScheme.onSurface,
+              //   ),
+              //   label: Text(category == null ? "Default" : category!.name),
+              // ),
+              // const SizedBox(height: 10),
               if (errorText.isNotEmpty) ...[
                 Text(
                   errorText,

@@ -62,8 +62,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 "Settings",
                 style: TextStyle(
                   fontSize: 14,
-                  color:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                 ),
               ),
               const SizedBox(height: 10),
@@ -81,65 +80,60 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 ),
               ),
               const SizedBox(height: 5),
-              ListTile(
-                leading: SvgPicture.asset(
-                  "assets/svg/icons/text.svg",
-                  height: 24,
-                  width: 24,
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-                title: const Text("Change app typography"),
-                trailing: SvgPicture.asset(
-                  "assets/svg/icons/arrow-right.svg",
-                  height: 24,
-                  width: 24,
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-                onTap: () {},
-              ),
-              const SizedBox(height: 5),
-              ListTile(
-                leading: SvgPicture.asset(
-                  "assets/svg/icons/language-square.svg",
-                  height: 24,
-                  width: 24,
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-                title: const Text("Change app language"),
-                trailing: SvgPicture.asset(
-                  "assets/svg/icons/arrow-right.svg",
-                  height: 24,
-                  width: 24,
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-                onTap: () {},
-              ),
-              const SizedBox(height: 10),
-              Text(
-                "Import",
-                style: TextStyle(
-                  fontSize: 14,
-                  color:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
-                ),
-              ),
-              const SizedBox(height: 10),
-              ListTile(
-                leading: SvgPicture.asset(
-                  "assets/svg/icons/import.svg",
-                  height: 24,
-                  width: 24,
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-                title: const Text("Import from Google calendar"),
-                trailing: SvgPicture.asset(
-                  "assets/svg/icons/arrow-right.svg",
-                  height: 24,
-                  width: 24,
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-                onTap: () {},
-              ),
+              // ListTile(
+              //   leading: SvgPicture.asset("assets/svg/icons/text.svg",
+              //       height: 24, width: 24, color: Theme.of(context).colorScheme.onSurface),
+              //   title: const Text("Change app typography"),
+              //   trailing: SvgPicture.asset(
+              //     "assets/svg/icons/arrow-right.svg",
+              //     height: 24,
+              //     width: 24,
+              //     color: Theme.of(context).colorScheme.onSurface,
+              //   ),
+              //   onTap: () {},
+              // ),
+              // const SizedBox(height: 5),
+              // ListTile(
+              //   leading: SvgPicture.asset(
+              //     "assets/svg/icons/language-square.svg",
+              //     height: 24,
+              //     width: 24,
+              //     color: Theme.of(context).colorScheme.onSurface,
+              //   ),
+              //   title: const Text("Change app language"),
+              //   trailing: SvgPicture.asset(
+              //     "assets/svg/icons/arrow-right.svg",
+              //     height: 24,
+              //     width: 24,
+              //     color: Theme.of(context).colorScheme.onSurface,
+              //   ),
+              //   onTap: () {},
+              // ),
+              // const SizedBox(height: 10),
+              // Text(
+              //   "Import",
+              //   style: TextStyle(
+              //     fontSize: 14,
+              //     color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+              //   ),
+              // ),
+              // const SizedBox(height: 10),
+              // ListTile(
+              //   leading: SvgPicture.asset(
+              //     "assets/svg/icons/import.svg",
+              //     height: 24,
+              //     width: 24,
+              //     color: Theme.of(context).colorScheme.onSurface,
+              //   ),
+              //   title: const Text("Import from Google calendar"),
+              //   trailing: SvgPicture.asset(
+              //     "assets/svg/icons/arrow-right.svg",
+              //     height: 24,
+              //     width: 24,
+              //     color: Theme.of(context).colorScheme.onSurface,
+              //   ),
+              //   onTap: () {},
+              // ),
             ],
           ),
         ),

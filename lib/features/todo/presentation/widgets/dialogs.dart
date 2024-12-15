@@ -135,8 +135,9 @@ ElevatedButton gridOptionButton({
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       elevation: 0,
       shadowColor: Colors.transparent,
-      backgroundColor:
-          (isCurrent && selectedColor != null) ? selectedColor : backgroundColor ?? Theme.of(context).colorScheme.background,
+      backgroundColor: (isCurrent && selectedColor != null)
+          ? selectedColor
+          : backgroundColor ?? Theme.of(context).colorScheme.surface,
       foregroundColor: foregroundColor ?? Theme.of(context).colorScheme.onSurface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4),

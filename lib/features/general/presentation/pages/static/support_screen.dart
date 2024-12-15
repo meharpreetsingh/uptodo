@@ -112,32 +112,32 @@ class SupportUsScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              Text(
-                "Rate Uptodo",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
-                ),
-              ),
-              const SizedBox(height: 10),
-              if (Platform.isAndroid || Platform.isIOS)
-                ListTile(
-                  onTap: () {
-                    try {
-                      String appId = "com.devbymehar.UpTodo";
-                      // _launchUrl(url: "market://details?id=$appId");
-                      // TODO Make this work for iOS & Android
-                      StoreRedirect.redirect(androidAppId: appId, iOSAppId: appId);
-                    } catch (e) {
-                      log("[SupportUsScreen] Error: $e");
-                    }
-                  },
-                  leading: SvgPicture.asset(
-                    'assets/svg/icons/bag-2.svg',
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-                  title: const Text("Rate Uptodo"),
-                )
+              // Text(
+              //   "Rate Uptodo",
+              //   style: TextStyle(
+              //     fontSize: 14,
+              //     color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+              //   ),
+              // ),
+              // const SizedBox(height: 10),
+              // if (Platform.isAndroid || Platform.isIOS)
+              //   ListTile(
+              //     onTap: () {
+              //       try {
+              //         String appId = "com.devbymehar.UpTodo";
+              //         // _launchUrl(url: "market://details?id=$appId");
+              //         // TODO Make this work for iOS & Android
+              //         StoreRedirect.redirect(androidAppId: appId, iOSAppId: appId);
+              //       } catch (e) {
+              //         log("[SupportUsScreen] Error: $e");
+              //       }
+              //     },
+              //     leading: SvgPicture.asset(
+              //       'assets/svg/icons/bag-2.svg',
+              //       color: Theme.of(context).colorScheme.onSurface,
+              //     ),
+              //     title: const Text("Rate Uptodo"),
+              //   )
             ],
           ),
         ),

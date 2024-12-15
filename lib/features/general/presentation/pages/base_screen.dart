@@ -25,6 +25,7 @@ class CommonMainScreen extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         bottomNavigationBar: const MainBottomAppBar(),
         floatingActionButton: FloatingActionButton(
+          splashColor: Colors.transparent,
           tooltip: "Add",
           shape: const CircleBorder(),
           backgroundColor: Theme.of(context).colorScheme.primary,
