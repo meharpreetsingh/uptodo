@@ -52,22 +52,22 @@ class _TodoScreenState extends State<TodoScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-                TextField(
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                    border: const OutlineInputBorder(),
-                    hintText: "Search for your task...",
-                    filled: true,
-                    fillColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
-                    prefixIcon: const Icon(Icons.search),
-                  ),
-                  onChanged: (String? value) {
-                    if (value == null || value.isEmpty) return;
-                    setState(() {});
-                  },
-                ),
-                const SizedBox(height: 20),
+                // TextField(
+                //   controller: _searchController,
+                //   decoration: InputDecoration(
+                //     contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                //     border: const OutlineInputBorder(),
+                //     hintText: "Search for your task...",
+                //     filled: true,
+                //     fillColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+                //     prefixIcon: const Icon(Icons.search),
+                //   ),
+                //   onChanged: (String? value) {
+                //     if (value == null || value.isEmpty) return;
+                //     setState(() {});
+                //   },
+                // ),
+                // const SizedBox(height: 20),
                 Expanded(
                   child: ListView.separated(
                     itemCount: state.todos.length,
