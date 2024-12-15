@@ -73,10 +73,7 @@ class ProfileScreen extends StatelessWidget {
                   "Settings",
                   style: TextStyle(
                     fontSize: 14,
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withOpacity(0.6),
+                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -101,10 +98,7 @@ class ProfileScreen extends StatelessWidget {
                   "Account",
                   style: TextStyle(
                     fontSize: 14,
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withOpacity(0.6),
+                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -124,32 +118,29 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   onTap: () => context.push(AccountSettingScreen.routeName),
                 ),
-                const SizedBox(height: 5),
-                ListTile(
-                  leading: SvgPicture.asset(
-                    "assets/svg/icons/security-user.svg",
-                    height: 24,
-                    width: 24,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-                  title: const Text("Privacy & Security"),
-                  trailing: SvgPicture.asset(
-                    "assets/svg/icons/arrow-right.svg",
-                    height: 24,
-                    width: 24,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-                  onTap: () => context.push(PrivacySecurityScreen.routeName),
-                ),
+                // const SizedBox(height: 5),
+                // ListTile(
+                //   leading: SvgPicture.asset(
+                //     "assets/svg/icons/security-user.svg",
+                //     height: 24,
+                //     width: 24,
+                //     color: Theme.of(context).colorScheme.onSurface,
+                //   ),
+                //   title: const Text("Privacy & Security"),
+                //   trailing: SvgPicture.asset(
+                //     "assets/svg/icons/arrow-right.svg",
+                //     height: 24,
+                //     width: 24,
+                //     color: Theme.of(context).colorScheme.onSurface,
+                //   ),
+                //   onTap: () => context.push(PrivacySecurityScreen.routeName),
+                // ),
                 const SizedBox(height: 10),
                 Text(
                   "UpTodo",
                   style: TextStyle(
                     fontSize: 14,
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withOpacity(0.6),
+                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -187,23 +178,23 @@ class ProfileScreen extends StatelessWidget {
                   onTap: () => context.push(FaqScreen.routeName),
                 ),
                 const SizedBox(height: 5),
-                ListTile(
-                  leading: SvgPicture.asset(
-                    "assets/svg/icons/flash.svg",
-                    height: 24,
-                    width: 24,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-                  title: const Text("Help & Feedback"),
-                  trailing: SvgPicture.asset(
-                    "assets/svg/icons/arrow-right.svg",
-                    height: 24,
-                    width: 24,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-                  onTap: () => context.push(HelpScreen.routeName),
-                ),
-                const SizedBox(height: 5),
+                // ListTile(
+                //   leading: SvgPicture.asset(
+                //     "assets/svg/icons/flash.svg",
+                //     height: 24,
+                //     width: 24,
+                //     color: Theme.of(context).colorScheme.onSurface,
+                //   ),
+                //   title: const Text("Help & Feedback"),
+                //   trailing: SvgPicture.asset(
+                //     "assets/svg/icons/arrow-right.svg",
+                //     height: 24,
+                //     width: 24,
+                //     color: Theme.of(context).colorScheme.onSurface,
+                //   ),
+                //   onTap: () => context.push(HelpScreen.routeName),
+                // ),
+                // const SizedBox(height: 5),
                 ListTile(
                   leading: SvgPicture.asset(
                     "assets/svg/icons/like.svg",
