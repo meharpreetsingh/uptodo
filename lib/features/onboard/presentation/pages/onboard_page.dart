@@ -80,7 +80,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
           final prefs = await SharedPreferences.getInstance();
           prefs.setBool("isOnboarded", true);
           // TODO Change SharedPreferences ("isOnboarded")
-          if (mounted) context.go(AuthOptionsScreen.routeName);
+          if (context.mounted) context.go(AuthOptionsScreen.routeName);
           // TODO Redirect to AuthScreen
         },
         pages: [
